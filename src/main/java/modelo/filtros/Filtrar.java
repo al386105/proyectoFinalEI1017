@@ -7,6 +7,7 @@ import java.util.List;
 public class Filtrar {
     private Filtro filtro;
 
+    public Filtrar(){ super(); }
 
     public Filtrar(Filtro filtro){
         this.filtro = filtro;

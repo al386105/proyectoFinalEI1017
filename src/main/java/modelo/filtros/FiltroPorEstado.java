@@ -9,6 +9,8 @@ import java.util.List;
 public class FiltroPorEstado implements Filtro {
     boolean completada;
 
+    public FiltroPorEstado(){ super(); }
+
     public FiltroPorEstado(boolean completada){ this.completada = completada; }
 
     public void setEstado(boolean completada) { this.completada = completada; }

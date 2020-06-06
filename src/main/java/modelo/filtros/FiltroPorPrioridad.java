@@ -9,13 +9,19 @@ import java.util.List;
 public class FiltroPorPrioridad implements Filtro {
     Prioridad prioridad;
 
+    public FiltroPorPrioridad(){ super(); }
+
+    public void setPrioridad(Prioridad prioridad) {
+        this.prioridad = prioridad;
+    }
+
     @Override
     public List<Tarea> filtrar(List<Tarea> tareas) {
         if (tareas.isEmpty()) return tareas;
         LinkedList<Tarea> tareasConFiltro = new LinkedList<>();
         for (Tarea tarea : tareas) {
             //TODO: Esto comparación puede que no esté bien:
-            if (tarea.getPrioridad().getDescripcion().equals(this.prioridad.getDescripcion())) tareasConFiltro.add(tarea) ;
+            if (tarea.getPrioridad() == prioridad) tareasConFiltro.add(tarea) ;
         }
         return tareasConFiltro;
     }
