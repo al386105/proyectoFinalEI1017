@@ -1,17 +1,29 @@
 package vista;
 
+import controlador.Controlador;
+import modelo.InterrogaModelo;
+import modelo.tarea.Prioridad;
+import modelo.tarea.Tarea;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collection;
+import java.util.LinkedList;
 
-public class ImplementacionVista {
+public class ImplementacionVista implements InformaVista{
+    private Controlador controlador;
+    private InterrogaModelo modelo;
+    private InformaVista vista;
+    private ModeloTabla modeloTabla;
 
-
+    @Override
     public void accionPermitida(String cadena){
         JOptionPane.showMessageDialog(null, cadena);
     }
 
+    @Override
     public void accionDenegada(String cadena){
         JOptionPane.showMessageDialog(null, cadena,"Error", JOptionPane.WARNING_MESSAGE);
     }
@@ -26,10 +38,13 @@ public class ImplementacionVista {
     private void ventanaPrincipal(){
         JFrame ventana = new JFrame("Mis tareas");
 
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
         //SECCION FILTROS
 
-        JPanel jPanelSeccion = new JPanel();
-        jPanelSeccion.setLayout(new BoxLayout(jPanelSeccion, BoxLayout.X_AXIS));
+        JPanel jPanelSeccionArriba = new JPanel();
+        jPanelSeccionArriba.setLayout(new BoxLayout(jPanelSeccionArriba, BoxLayout.X_AXIS));
 
 
         //Prioridad
@@ -54,7 +69,7 @@ public class ImplementacionVista {
         grupoPrioridad.add(baja);
         grupoPrioridad.add(todas);
 
-        jPanelSeccion.add(jPanelPrioridad);
+        jPanelSeccionArriba.add(jPanelPrioridad);
 
         //Completadas
         JRadioButton completada = new JRadioButton("Completada");
@@ -74,15 +89,44 @@ public class ImplementacionVista {
         grupoCompletadas.add(todas2);
 
 
-        jPanelSeccion.add(jPanelCompletadas);
+        jPanelSeccionArriba.add(jPanelCompletadas);
 
         //Botón filtra:
         JButton aplicarFiltros = new JButton("Aplicar filtros");
 
-        jPanelSeccion.add(aplicarFiltros);
+        jPanelSeccionArriba.add(aplicarFiltros);
+
+        panel.add(jPanelSeccionArriba);
+
 
         //SECCION LISTA DE TAREAS
 
+        JPanel jPanelSeccionMedia = new JPanel();
+        jPanelSeccionMedia.setLayout(new BoxLayout(jPanelSeccionMedia, BoxLayout.X_AXIS));
+
+        String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};
+        //TODO: ESTO HABRA QUE CAMBIARLO CUANDO SE HAGA MVC:
+        Tarea llamarDentista = new Tarea("Llamar al dentista", "Pedir cita para limpieza bucal", Prioridad.ALTA, true);
+        Tarea irDentista = new Tarea("Ir al dentista", "Limpieza bucal a las 16 30", Prioridad.ALTA, false);
+        Tarea estudiar = new Tarea("Estudiar", "Estudiar programacion", Prioridad.ALTA, false);
+        Tarea entrenar = new Tarea("Entrenar", "Ir al gimnasio", Prioridad.NORMAL, true);
+        Tarea listarCompra = new Tarea("Listar Compra", "Hacer lista de la compra", Prioridad.NORMAL, false);
+        Tarea hacerCompra = new Tarea("Comprar", "Ir a comprar", Prioridad.BAJA, true);
+        Tarea hacerCompra2 = new Tarea("Comprar", "Comprar mas", Prioridad.BAJA, false);
+        Collection<Tarea> tareas = new LinkedList<>();
+        tareas.add(llamarDentista);
+        tareas.add(irDentista);
+        tareas.add(estudiar);
+        tareas.add(entrenar);
+        tareas.add(listarCompra);
+        tareas.add(hacerCompra);
+        tareas.add(hacerCompra2);
+        modeloTabla = new ModeloTabla(columnas, tareas);
+        Tabla tabla = new Tabla(modeloTabla);
+
+        jPanelSeccionMedia.add(tabla);
+
+        panel.add(jPanelSeccionMedia);
 
         //Clase (interna) para importarDatos al abrir y exportarDatos al cerrar
         ventana.addWindowListener(new WindowAdapter() {
@@ -98,7 +142,7 @@ public class ImplementacionVista {
             }
         });
 
-        ventana.add(jPanelSeccion);
+        ventana.add(panel);
         ventana.pack();
         ventana.setVisible(true);
     }
