@@ -1,4 +1,4 @@
-package modelo;
+package modelo.tarea;
 
 public class Tarea {
     //ATRIBUTOS
@@ -26,7 +26,17 @@ public class Tarea {
 
     public String getTitulo(){ return titulo;}
 
+    public void setTitulo(String titulo){ this.titulo = titulo; }
+
     public String getDescripcion(){ return descripcion;}
 
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
+
+    public Prioridad getPrioridad(){ return prioridad; }
+
+    public void setPrioridad(Prioridad prioridad) { this.prioridad = prioridad; }
+
     public boolean completada(){ return completada; }
+
+    public void setCompletada(boolean completada) { this.completada = completada; }
 }

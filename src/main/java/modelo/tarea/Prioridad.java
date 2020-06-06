@@ -1,4 +1,4 @@
-package modelo;
+package modelo.tarea;
 
 public enum Prioridad {
     BAJA("Prioridad baja"),
