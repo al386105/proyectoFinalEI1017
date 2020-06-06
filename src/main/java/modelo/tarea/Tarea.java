@@ -39,4 +39,9 @@ public class Tarea {
     public boolean completada(){ return completada; }
 
     public void setCompletada(boolean completada) { this.completada = completada; }
+
+    @Override
+    public String toString() {
+        return  titulo + " (" + descripcion + ") " + prioridad + " prioridad.  " + completada + "\n";
+    }
 }

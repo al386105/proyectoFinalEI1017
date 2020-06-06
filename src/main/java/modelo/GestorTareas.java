@@ -1,5 +1,6 @@
 package modelo;
 
+import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
 import java.util.HashMap;
@@ -26,17 +27,26 @@ public class GestorTareas {
 //
 //    }
 
+
     public void anadirTarea(Tarea tarea){
         tareas.put(tarea.getCodigo(), tarea);
 
     }
     public void borrarTarea(int codigoTarea) throws TareaNoExistenteException{
-        if(existeTarea(codigoTarea)) throw new TareaNoExistenteException();
+        if(!existeTarea(codigoTarea)) throw new TareaNoExistenteException();
         tareas.remove(codigoTarea);
 
     }
 
     //public void aplicarFiltros(){    }
+
+    public String listarTareas(){
+        String string = "";
+        for(Tarea tarea : tareas.values()){
+            string += tarea.toString();
+        }
+        return string;
+    }
 
 
 }
