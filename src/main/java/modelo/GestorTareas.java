@@ -3,6 +3,7 @@ package modelo;
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,7 +39,10 @@ public class GestorTareas {
 
     }
 
-    //public void aplicarFiltros(){    }
+    public Collection<Tarea> devolverTareas(){
+        return tareas.values();
+    }
+
 
     public String listarTareas(){
         String string = "";
