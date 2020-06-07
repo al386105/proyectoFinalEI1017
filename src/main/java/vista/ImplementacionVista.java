@@ -6,6 +6,8 @@ import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,6 +19,7 @@ public class ImplementacionVista implements InformaVista{
     private InterrogaModelo modelo;
     private InformaVista vista;
     private ModeloTabla modeloTabla;
+    private Tabla tabla;
 
     @Override
     public void accionPermitida(String cadena){
@@ -53,7 +56,7 @@ public class ImplementacionVista implements InformaVista{
         alta.setActionCommand("ALTA");
         JRadioButton normal = new JRadioButton("Normal");
         JRadioButton baja = new JRadioButton("Baja");
-        JRadioButton todas = new JRadioButton("Todas");
+        JRadioButton todas = new JRadioButton("Todas", true);
 
         JPanel jPanelPrioridad = new JPanel();
         jPanelPrioridad.setLayout(new BoxLayout(jPanelPrioridad, BoxLayout.PAGE_AXIS));
@@ -74,7 +77,7 @@ public class ImplementacionVista implements InformaVista{
         //Completadas
         JRadioButton completada = new JRadioButton("Completada");
         JRadioButton noCompletada = new JRadioButton("No completada");
-        JRadioButton todas2 = new JRadioButton(("Todas"));
+        JRadioButton todas2 = new JRadioButton("Todas", true);
 
         JPanel jPanelCompletadas = new JPanel();
         jPanelCompletadas.setLayout(new BoxLayout(jPanelCompletadas, BoxLayout.PAGE_AXIS));
@@ -104,6 +107,8 @@ public class ImplementacionVista implements InformaVista{
         JPanel jPanelSeccionMedia = new JPanel();
         jPanelSeccionMedia.setLayout(new BoxLayout(jPanelSeccionMedia, BoxLayout.X_AXIS));
 
+
+
         String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};
         //TODO: ESTO HABRA QUE CAMBIARLO CUANDO SE HAGA MVC:
         Tarea llamarDentista = new Tarea("Llamar al dentista", "Pedir cita para limpieza bucal", Prioridad.ALTA, true);
@@ -118,15 +123,103 @@ public class ImplementacionVista implements InformaVista{
         tareas.add(irDentista);
         tareas.add(estudiar);
         tareas.add(entrenar);
-        tareas.add(listarCompra);
-        tareas.add(hacerCompra);
-        tareas.add(hacerCompra2);
+//        tareas.add(listarCompra);
+//        tareas.add(hacerCompra);
+//        tareas.add(hacerCompra2);
         modeloTabla = new ModeloTabla(columnas, tareas);
-        Tabla tabla = new Tabla(modeloTabla);
+        tabla = new Tabla(modeloTabla);
+
+        //crea el escuchador de la tabla
+        ListSelectionListener escuchadorTabla = new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                //si se ejecuta este metodo porque se da al boton de actualizar
+                //y no se selecciona ninguna fila
+                ListSelectionModel lsm = (ListSelectionModel)e.getSource();
+                if(lsm.getMinSelectionIndex() == -1) return;
+
+                if (!e.getValueIsAdjusting()) {
+                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+                    //TODO: Aqui estaria muy bien obtener el codigo
+                    String titulo = (String) modeloTabla.getValueAt(fila, 0);
+                    //datosFactura(codTabla);
+                }
+            }
+        };
 
         jPanelSeccionMedia.add(tabla);
-
+        Scroll scroll = new Scroll();
+        jPanelSeccionMedia = scroll.ejecuta(tabla, jPanelSeccionMedia, escuchadorTabla);
         panel.add(jPanelSeccionMedia);
+
+
+        //SECCION DETALLE DE LA TAREA
+        JPanel jPanelseccionBaja = new JPanel();
+        jPanelseccionBaja.setLayout(new BoxLayout(jPanelseccionBaja, BoxLayout.Y_AXIS));
+
+        //Titulo:
+
+        JPanel titulo = new JPanel();
+        titulo.setLayout(new BoxLayout(titulo, BoxLayout.X_AXIS));
+
+        titulo.add(new JLabel("Título: "));
+        titulo.add(new JTextField("Volver a mirar las estrellas. "));
+
+        jPanelseccionBaja.add(titulo);
+
+        //Descripcion:
+        JPanel descripcion = new JPanel();
+        descripcion.setLayout(new BoxLayout(descripcion, BoxLayout.X_AXIS));
+
+        descripcion.add(new JLabel("Descripcion: "));
+        descripcion.add(new JTextArea(5, 1));
+
+        jPanelseccionBaja.add(descripcion);
+
+        //Estado
+        JCheckBox completado = new JCheckBox("Completada");
+
+        jPanelseccionBaja.add(completado);
+
+        //Prioridad
+        JPanel prioridad = new JPanel();
+        prioridad.setLayout(new BoxLayout(prioridad, BoxLayout.X_AXIS));
+
+        JRadioButton alta2 = new JRadioButton("Alta");
+        JRadioButton normal2 = new JRadioButton("Normal");
+        JRadioButton baja2 = new JRadioButton("Baja", true);
+
+        prioridad.add(alta2);
+        prioridad.add(normal2);
+        prioridad.add(baja2);
+
+        ButtonGroup grupoPrioridad2 = new ButtonGroup();
+        grupoPrioridad2.add(alta2);
+        grupoPrioridad2.add(normal2);
+        grupoPrioridad2.add(baja2);
+
+        jPanelseccionBaja.add(prioridad);
+
+        //Botones:
+        JPanel botones = new JPanel();
+        botones.setLayout(new BoxLayout(botones, BoxLayout.X_AXIS));
+
+        JButton jButtonNuevo = new JButton("Nuevo");
+        JButton jButtonActualiza = new JButton("Actualiza");
+        JButton jButtonBorra = new JButton("Borra");
+
+        botones.add(jButtonNuevo);
+        botones.add(jButtonActualiza);
+        botones.add(jButtonBorra);
+
+        jPanelseccionBaja.add(botones);
+
+        panel.add(jPanelseccionBaja);
+
+        ventana.add(panel);
+        ventana.pack();
+        ventana.setVisible(true);
+
 
         //Clase (interna) para importarDatos al abrir y exportarDatos al cerrar
         ventana.addWindowListener(new WindowAdapter() {
@@ -141,9 +234,5 @@ public class ImplementacionVista implements InformaVista{
                 System.exit(0);
             }
         });
-
-        ventana.add(panel);
-        ventana.pack();
-        ventana.setVisible(true);
     }
 }

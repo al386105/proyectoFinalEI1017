@@ -28,9 +28,19 @@ public class ModeloTabla extends AbstractTableModel {
     }
 
     @Override
-    public Tarea getValueAt(int row, int column) {
+    public Object getValueAt(int row, int column) {
         //Aqui hago que me devue
-        return datos.get(row);
+        switch (column){
+            case 0:
+                return datos.get(row).getTitulo();
+            case 1:
+                return datos.get(row).getDescripcion();
+            case 2:
+                return datos.get(row).completada();
+            case 3:
+                return datos.get(row).getPrioridad().getDescripcion();
+        }
+        return null;
 
     }
 

@@ -10,7 +10,7 @@ public class Tabla extends JTable {
 
     public Tabla(AbstractTableModel modelo){
         super(modelo);
-        setAutoCreateRowSorter(true); //Desactivar si no quiero que aparezcan los datos ordenados
+        setAutoCreateRowSorter(true); //Desactivar si no quiero que aparezcan los datos ordenados??
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ajustarAnchoColumnas();
     }
