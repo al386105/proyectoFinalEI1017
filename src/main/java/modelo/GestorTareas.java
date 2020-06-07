@@ -1,55 +1,51 @@
 package modelo;
 
+import modelo.filtros.Filtro;
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
+import vista.InformaVista;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GestorTareas {
     private Map<Integer, Tarea> tareas; //Clave --> codigo de la tarea
-    //TODO; Si añadimos la tarea de la forma que hacemos ahora la fabrica no sirve para nada
-    private FabricaTareas fabricaTareas;
+    private InformaVista vista;
+    private Filtro filtro;
+
 
 
     public GestorTareas(){
         this.tareas = new HashMap<Integer, Tarea>();
-        this.fabricaTareas = new FabricaTareas();
     }
+
+    public void setVista(InformaVista vista) { this.vista = vista; }
+
+    public void setFiltro(Filtro filtro) { this.filtro = filtro; }
 
     public boolean existeTarea(int codigoTarea){
         if(tareas.containsKey(codigoTarea)) return true;
         return false;
     }
 
-//    public void anadirTarea(String titulo, String descripcion, Prioridad prioridad, boolean completada){
-//        Tarea nuevaTarea = fabricaTareas.getTarea(titulo, descripcion, prioridad, completada);
-//
-//    }
-
 
     public void anadirTarea(Tarea tarea){
         tareas.put(tarea.getCodigo(), tarea);
-
     }
+
     public void borrarTarea(int codigoTarea) throws TareaNoExistenteException{
         if(!existeTarea(codigoTarea)) throw new TareaNoExistenteException();
         tareas.remove(codigoTarea);
+    }
 
+    public Collection<Tarea> filtrar(Collection<Tarea> tareas){
+        return filtro.filtrar(tareas);
     }
 
     public Collection<Tarea> devolverTareas(){
         return tareas.values();
-    }
-
-
-    public String listarTareas(){
-        String string = "";
-        for(Tarea tarea : tareas.values()){
-            string += tarea.toString();
-        }
-        return string;
     }
 
 

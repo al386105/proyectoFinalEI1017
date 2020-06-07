@@ -3,6 +3,7 @@ package modelo.filtros;
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,12 +12,16 @@ public class FiltroPorPrioridad implements Filtro {
 
     public FiltroPorPrioridad(){ super(); }
 
+    public FiltroPorPrioridad(Prioridad prioridad){
+        this.prioridad = prioridad;
+    }
+
     public void setPrioridad(Prioridad prioridad) {
         this.prioridad = prioridad;
     }
 
     @Override
-    public List<Tarea> filtrar(List<Tarea> tareas) {
+    public Collection<Tarea> filtrar(Collection<Tarea> tareas) {
         if (tareas.isEmpty()) return tareas;
         LinkedList<Tarea> tareasConFiltro = new LinkedList<>();
         for (Tarea tarea : tareas) {

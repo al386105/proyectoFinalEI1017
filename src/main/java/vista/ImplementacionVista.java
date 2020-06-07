@@ -2,14 +2,16 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
-
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class ImplementacionVista implements InformaVista{
+
+public class ImplementacionVista implements InformaVista, InterrogaVista{
     private Controlador controlador;
     private Panel panel;
+
+
 
     public ImplementacionVista(){
         super();
@@ -65,4 +67,47 @@ public class ImplementacionVista implements InformaVista{
             }
         });
     }
+
+
+
+    @Override
+    public Panel getPanel() {
+        return this.panel;
+    }
+
+    @Override
+    public String getFiltroPrioridad() {
+        return this.panel.getFiltroPrioridad();
+    }
+
+    @Override
+    public String getFiltroCompletado() {
+        return this.panel.getFiltroCompletado();
+    }
+
+    @Override
+    public String getTitulo() {
+        return this.panel.getTitulo();
+    }
+
+    @Override
+    public String getDescripcion() {
+        return this.panel.getDescripcion();
+    }
+
+    @Override
+    public String getPrioridad() {
+        return this.panel.getPrioridad();
+    }
+
+    @Override
+    public boolean getCompletado() {
+        return this.panel.getCompletado();
+    }
+
+    @Override
+    public int getCodigo() {
+        return 0;
+    }
+
 }

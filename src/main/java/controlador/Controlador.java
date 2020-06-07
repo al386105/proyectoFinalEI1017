@@ -7,9 +7,9 @@ public interface Controlador {
 
     void exportarDatos();
 
-    void anadirCliente();
+    void anadirTarea();
 
-    void borrarCliente() throws TareaNoExistenteException;
+    void borrarTarea() throws TareaNoExistenteException;
 
     void aplicarFiltros();
 

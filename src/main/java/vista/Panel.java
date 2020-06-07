@@ -1,8 +1,10 @@
 package vista;
 
 import controlador.Controlador;
+import modelo.GestorTareas;
 import modelo.InterrogaModelo;
 import modelo.TareaNoExistenteException;
+
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
@@ -14,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.LinkedList;
 
+
 public class Panel extends JPanel implements InterrogaVista{
     private Controlador controlador;
     private InterrogaModelo modelo;
@@ -23,7 +26,6 @@ public class Panel extends JPanel implements InterrogaVista{
     private JTextField jTextFieldTitulo;
     private JTextArea jTextAreaDescripcion;
     private JCheckBox jCheckBoxCompletada;
-    private String tipoAccion;
     private String tipoTarea;
     private String tipoFiltroPrioridad;
     private String tipoFiltroCompletado;
@@ -49,28 +51,21 @@ public class Panel extends JPanel implements InterrogaVista{
             public void actionPerformed(ActionEvent actionEvent) {
                 String comando = actionEvent.getActionCommand();
                 if(comando.equals("NUEVO")) {
-                    controlador.anadirCliente();
-                    System.out.println(actionEvent);
-                }
-                else if (comando.equals("ACTUALIZA")){
-                    //WTF
-                    System.out.println(actionEvent);
+                    controlador.anadirTarea();
                 }
                 else if (comando.equals("BORRA")){
-                    System.out.println(actionEvent);
                     try{
-                        controlador.borrarCliente();
+                        controlador.borrarTarea();
                     } catch (TareaNoExistenteException exception){
                         vista.accionDenegada(exception.getMessage());
                     }
                 }
                 else {
-                    System.out.println(actionEvent);
-                    //WTFx2 comando.equals("APLICARFILTROS"))
+                    controlador.aplicarFiltros();
                 }
-
             }
         };
+
         //SECCION FILTROS
 
         JPanel jPanelSeccionArriba = new JPanel();
@@ -167,22 +162,11 @@ public class Panel extends JPanel implements InterrogaVista{
 
 
         String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};
-        //TODO: ESTO HABRA QUE CAMBIARLO CUANDO SE HAGA MVC:
-        Tarea llamarDentista = new Tarea("Llamar al dentista", "Pedir cita para limpieza bucal", Prioridad.ALTA, true);
-        Tarea irDentista = new Tarea("Ir al dentista", "Limpieza bucal a las 16 30", Prioridad.ALTA, false);
-        Tarea estudiar = new Tarea("Estudiar", "Estudiar programacion", Prioridad.ALTA, false);
-        Tarea entrenar = new Tarea("Entrenar", "Ir al gimnasio", Prioridad.NORMAL, true);
-        Tarea listarCompra = new Tarea("Listar Compra", "Hacer lista de la compra", Prioridad.NORMAL, false);
-        Tarea hacerCompra = new Tarea("Comprar", "Ir a comprar", Prioridad.BAJA, true);
-        Tarea hacerCompra2 = new Tarea("Comprar", "Comprar mas", Prioridad.BAJA, false);
+//        GestorTareas gestorTareas = modelo.getGestorTareas();
+//        Collection<Tarea> tareas = gestorTareas.devolverTareas();
+        Tarea tarea = new Tarea("Listar Compra", "Hacer lista de la compra", Prioridad.NORMAL, false);
         Collection<Tarea> tareas = new LinkedList<>();
-        tareas.add(llamarDentista);
-        tareas.add(irDentista);
-        tareas.add(estudiar);
-        tareas.add(entrenar);
-//        tareas.add(listarCompra);
-//        tareas.add(hacerCompra);
-//        tareas.add(hacerCompra2);
+        tareas.add(tarea);
         modeloTabla = new ModeloTabla(columnas, tareas);
         tabla = new Tabla(modeloTabla);
 
@@ -201,6 +185,14 @@ public class Panel extends JPanel implements InterrogaVista{
                     String titulo = (String) modeloTabla.getValueAt(fila, 0);
                     //datosFactura(codTabla);
                 }
+            }
+        };
+
+        ActionListener escuchadorActualiza = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareas));
+                tabla.ajustarAnchoColumnas();
             }
         };
 
@@ -286,10 +278,12 @@ public class Panel extends JPanel implements InterrogaVista{
         jButtonBorra.setActionCommand("BORRA");
 
 
+
+
         jButtonAplicarFiltros.addActionListener(escuchadorBoton);
         jButtonNuevo.addActionListener(escuchadorBoton);
         jButtonBorra.addActionListener(escuchadorBoton);
-        jButtonActualiza.addActionListener(escuchadorBoton);
+        jButtonActualiza.addActionListener(escuchadorActualiza);
 
 
         botones.add(jButtonNuevo);
@@ -300,8 +294,9 @@ public class Panel extends JPanel implements InterrogaVista{
 
         this.add(jPanelseccionBaja);
 
-    }
 
+
+    }
 
     @Override
     public Panel getPanel() {

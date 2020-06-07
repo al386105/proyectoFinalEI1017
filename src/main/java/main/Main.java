@@ -2,22 +2,21 @@ package main;
 
 import controlador.ImplementacionControlador;
 import modelo.GestorTareas;
+import modelo.ImplementacionModelo;
 import modelo.TareaNoExistenteException;
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 import vista.ImplementacionVista;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 public class Main {
     public static void main(String[] args) {
         GestorTareas gestorTareas = new GestorTareas();
-
-
-        //Arranque del GUI:
-        ImplementacionVista vista = new ImplementacionVista();
-        vista.creaGUI();
-
-
-//        Parte de pruebas
+//
+//        //Parte de pruebas:
+//        //TODO: ESTO HABRA QUE CAMBIARLO CUANDO SE HAGA MVC:
 //        Tarea llamarDentista = new Tarea("Llamar al dentista", "Pedir cita para limpieza bucal", Prioridad.ALTA, true);
 //        Tarea irDentista = new Tarea("Ir al dentista", "Limpieza bucal a las 16 30", Prioridad.ALTA, false);
 //        Tarea estudiar = new Tarea("Estudiar", "Estudiar programacion", Prioridad.ALTA, false);
@@ -29,25 +28,18 @@ public class Main {
 //        gestorTareas.anadirTarea(llamarDentista);
 //        gestorTareas.anadirTarea(irDentista);
 //        gestorTareas.anadirTarea(estudiar);
-//        gestorTareas.anadirTarea(entrenar);
-//        gestorTareas.anadirTarea(listarCompra);
-//        gestorTareas.anadirTarea(hacerCompra);
-//
-//        System.out.println(gestorTareas.listarTareas());
-//
-//        try {
-//            gestorTareas.borrarTarea(estudiar.getCodigo());
-//            gestorTareas.borrarTarea(listarCompra.getCodigo());
-//        } catch (TareaNoExistenteException e) {
-//            e.printStackTrace();
-//        }
-//
-//        System.out.println(gestorTareas.listarTareas());
-//
-//        try {
-//           gestorTareas.borrarTarea(hacerCompra2.getCodigo());
-//        } catch (TareaNoExistenteException e) {
-//            e.printStackTrace();
-//        }
+
+
+        //Arranque del GUI:
+        ImplementacionControlador controlador = new ImplementacionControlador();
+        ImplementacionModelo modelo = new ImplementacionModelo();
+        ImplementacionVista vista = new ImplementacionVista();
+        modelo.setGestorTareas(gestorTareas);
+        modelo.setVista(vista);
+        controlador.setModelo(modelo);
+        controlador.setVista(vista);
+        vista.setModelo(modelo);
+        vista.setControlador(controlador);
+        vista.creaGUI();
     }
 }

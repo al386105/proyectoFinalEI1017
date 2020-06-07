@@ -3,6 +3,7 @@ package modelo.filtros;
 
 import modelo.tarea.Tarea;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class FiltroPorEstado implements Filtro {
     public void setEstado(boolean completada) { this.completada = completada; }
 
     @Override
-    public List<Tarea> filtrar(List<Tarea> tareas) {
+    public Collection<Tarea> filtrar(Collection<Tarea> tareas) {
         if (tareas.isEmpty()) return tareas;
         List<Tarea> tareasConFiltro = new LinkedList<>();
         for (Tarea tarea : tareas) {

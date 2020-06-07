@@ -29,7 +29,6 @@ public class ModeloTabla extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int row, int column) {
-        //Aqui hago que me devue
         switch (column){
             case 0:
                 return datos.get(row).getTitulo();

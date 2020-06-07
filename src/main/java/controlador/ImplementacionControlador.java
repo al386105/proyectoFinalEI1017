@@ -12,8 +12,16 @@ public class ImplementacionControlador implements Controlador {
 
     public void setModelo(CambioModelo modelo) {
         this.modelo = modelo;
+        Accion.gestorTareas = modelo.getGestorTareas();
 
     }
+
+    public void setVista(InterrogaVista vista) {
+        this.vista = vista;
+        Accion.vista = vista;
+    }
+
+    public InterrogaVista getVista() { return vista; }
 
     @Override
     public void importarDatos() {
@@ -26,14 +34,15 @@ public class ImplementacionControlador implements Controlador {
     }
 
     @Override
-    public void anadirCliente() {
-
+    public void anadirTarea() {
+        new AnadirTarea().ejecutaAccion();
     }
 
     @Override
-    public void borrarCliente() throws TareaNoExistenteException {
-
+    public void borrarTarea() throws TareaNoExistenteException {
+        new BorrarTarea().ejecutaAccion();
     }
+
 
     @Override
     public void aplicarFiltros() {
