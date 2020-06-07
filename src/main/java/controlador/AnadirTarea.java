@@ -11,10 +11,10 @@ public class AnadirTarea extends Accion {
         InterrogaVista vistaPanel = vista.getPanel();
         String tituloTarea = vistaPanel.getTitulo();
         String descripcionTarea = vistaPanel.getDescripcion();
-        Prioridad prioridadTarea = vistaPanel.getPrioridad();
+        String prioridadTarea = vistaPanel.getPrioridad().toUpperCase();
         boolean completado = vistaPanel.getCompletado();
         //TODO: estaría bien que la Tarea la creara la fabrica!
-        Tarea tarea = new Tarea(tituloTarea, descripcionTarea, prioridadTarea, completado);
+        Tarea tarea = new Tarea(tituloTarea, descripcionTarea, Prioridad.valueOf(prioridadTarea), completado);
         gestorTareas.anadirTarea(tarea);
     }
 }

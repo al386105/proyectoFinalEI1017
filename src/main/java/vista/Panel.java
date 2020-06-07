@@ -20,6 +20,14 @@ public class Panel extends JPanel implements InterrogaVista{
     private InformaVista vista;
     private ModeloTabla modeloTabla;
     private Tabla tabla;
+    private JTextField jTextFieldTitulo;
+    private JTextArea jTextAreaDescripcion;
+    private JCheckBox jCheckBoxCompletada;
+    private String tipoAccion;
+    private String tipoTarea;
+    private String tipoFiltroPrioridad;
+    private String tipoFiltroCompletado;
+
 
     public Panel(){
         super();
@@ -40,13 +48,16 @@ public class Panel extends JPanel implements InterrogaVista{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String comando = actionEvent.getActionCommand();
-                if(comando.equals("nuevo")) {
+                if(comando.equals("NUEVO")) {
                     controlador.anadirCliente();
+                    System.out.println(actionEvent);
                 }
-                else if (comando.equals("actualiza")){
+                else if (comando.equals("ACTUALIZA")){
                     //WTF
+                    System.out.println(actionEvent);
                 }
-                else if (comando.equals("borra")){
+                else if (comando.equals("BORRA")){
+                    System.out.println(actionEvent);
                     try{
                         controlador.borrarCliente();
                     } catch (TareaNoExistenteException exception){
@@ -54,7 +65,8 @@ public class Panel extends JPanel implements InterrogaVista{
                     }
                 }
                 else {
-                    //WTFx2 comando.equals("aplicarFiltros"))
+                    System.out.println(actionEvent);
+                    //WTFx2 comando.equals("APLICARFILTROS"))
                 }
 
             }
@@ -66,54 +78,83 @@ public class Panel extends JPanel implements InterrogaVista{
 
 
         //Prioridad
-        JRadioButton alta = new JRadioButton("Alta");
-        //Alomejor interesa establecer a los botones un SetActionComand:
-        alta.setActionCommand("ALTA");
-        JRadioButton normal = new JRadioButton("Normal");
-        JRadioButton baja = new JRadioButton("Baja");
-        JRadioButton todas = new JRadioButton("Todas", true);
+        JRadioButton jRButtonAlta = new JRadioButton("Alta");
+        jRButtonAlta.setActionCommand("FILTRO ALTA");
+        JRadioButton jRButtonNormal = new JRadioButton("Normal");
+        jRButtonNormal.setActionCommand("FILTRO NORMAL");
+        JRadioButton jRButtonBaja = new JRadioButton("Baja");
+        jRButtonBaja.setActionCommand("FILTRO BAJA");
+        JRadioButton jRButtonTodas = new JRadioButton("Todas", true);
+        jRButtonTodas.setActionCommand("FILTRO TODAS");
+
+        ActionListener escuchadorTipoFiltroPrioridad = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                tipoFiltroPrioridad = actionEvent.getActionCommand();
+                System.out.println(actionEvent);
+            }
+        };
+        jRButtonAlta.addActionListener(escuchadorTipoFiltroPrioridad);
+        jRButtonNormal.addActionListener(escuchadorTipoFiltroPrioridad);
+        jRButtonBaja.addActionListener(escuchadorTipoFiltroPrioridad);
+        jRButtonTodas.addActionListener(escuchadorTipoFiltroPrioridad);
 
         JPanel jPanelPrioridad = new JPanel();
         jPanelPrioridad.setLayout(new BoxLayout(jPanelPrioridad, BoxLayout.PAGE_AXIS));
         jPanelPrioridad.add(new JLabel("Prioridad"));
-        jPanelPrioridad.add(alta);
-        jPanelPrioridad.add(normal);
-        jPanelPrioridad.add(baja);
-        jPanelPrioridad.add(todas);
+        jPanelPrioridad.add(jRButtonAlta);
+        jPanelPrioridad.add(jRButtonNormal);
+        jPanelPrioridad.add(jRButtonBaja);
+        jPanelPrioridad.add(jRButtonTodas);
 
         ButtonGroup grupoPrioridad = new ButtonGroup();
-        grupoPrioridad.add(alta);
-        grupoPrioridad.add(normal);
-        grupoPrioridad.add(baja);
-        grupoPrioridad.add(todas);
+        grupoPrioridad.add(jRButtonAlta);
+        grupoPrioridad.add(jRButtonNormal);
+        grupoPrioridad.add(jRButtonBaja);
+        grupoPrioridad.add(jRButtonTodas);
 
         jPanelSeccionArriba.add(jPanelPrioridad);
 
         //Completadas
-        JRadioButton completada = new JRadioButton("Completada");
-        JRadioButton noCompletada = new JRadioButton("No completada");
-        JRadioButton todas2 = new JRadioButton("Todas", true);
+        JRadioButton jRButtonCompletada = new JRadioButton("Completada");
+        jRButtonCompletada.setActionCommand("FILTRO COMPLETADAS");
+        JRadioButton jRButtonNoCompletada = new JRadioButton("No completada");
+        jRButtonNoCompletada.setActionCommand("FILTRO NO COMPLETADAS");
+        JRadioButton jRButtonTodasB = new JRadioButton("Todas", true);
+        jRButtonTodasB.setActionCommand("FILTRO TODAS");
+
+        ActionListener escuchadorFiltroCompletado = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                tipoFiltroCompletado = actionEvent.getActionCommand();
+                System.out.println(actionEvent);
+            }
+        };
+        jRButtonCompletada.addActionListener(escuchadorFiltroCompletado);
+        jRButtonNoCompletada.addActionListener(escuchadorFiltroCompletado);
+        jRButtonTodasB.addActionListener(escuchadorFiltroCompletado);
 
         JPanel jPanelCompletadas = new JPanel();
         jPanelCompletadas.setLayout(new BoxLayout(jPanelCompletadas, BoxLayout.PAGE_AXIS));
         jPanelCompletadas.add(new JLabel("Completadas"));
-        jPanelCompletadas.add(completada);
-        jPanelCompletadas.add(noCompletada);
-        jPanelCompletadas.add(todas2);
+        jPanelCompletadas.add(jRButtonCompletada);
+        jPanelCompletadas.add(jRButtonNoCompletada);
+        jPanelCompletadas.add(jRButtonTodasB);
 
         ButtonGroup grupoCompletadas = new ButtonGroup();
-        grupoCompletadas.add(completada);
-        grupoCompletadas.add(noCompletada);
-        grupoCompletadas.add(todas2);
+        grupoCompletadas.add(jRButtonCompletada);
+        grupoCompletadas.add(jRButtonNoCompletada);
+        grupoCompletadas.add(jRButtonTodasB);
 
 
         jPanelSeccionArriba.add(jPanelCompletadas);
 
         //Botón filtra:
-        JButton aplicarFiltros = new JButton("Aplicar filtros");
-        aplicarFiltros.setActionCommand("aplicarFiltros");
+        JButton jButtonAplicarFiltros = new JButton("Aplicar filtros");
+        jButtonAplicarFiltros.setActionCommand("APLICARFILTROS");
 
-        jPanelSeccionArriba.add(aplicarFiltros);
+
+        jPanelSeccionArriba.add(jButtonAplicarFiltros);
 
         this.add(jPanelSeccionArriba);
 
@@ -179,7 +220,8 @@ public class Panel extends JPanel implements InterrogaVista{
         titulo.setLayout(new BoxLayout(titulo, BoxLayout.X_AXIS));
 
         titulo.add(new JLabel("Título: "));
-        titulo.add(new JTextField("Volver a mirar las estrellas. "));
+        jTextFieldTitulo = new JTextField("Volver a mirar las estrellas. ");
+        titulo.add(jTextFieldTitulo);
 
         jPanelseccionBaja.add(titulo);
 
@@ -188,31 +230,47 @@ public class Panel extends JPanel implements InterrogaVista{
         descripcion.setLayout(new BoxLayout(descripcion, BoxLayout.X_AXIS));
 
         descripcion.add(new JLabel("Descripcion: "));
-        descripcion.add(new JTextArea(5, 1));
+        jTextAreaDescripcion = new JTextArea(5,1);
+        descripcion.add(jTextAreaDescripcion);
 
         jPanelseccionBaja.add(descripcion);
 
         //Estado
-        JCheckBox completado = new JCheckBox("Completada");
+        jCheckBoxCompletada = new JCheckBox("Completada");
 
-        jPanelseccionBaja.add(completado);
+        jPanelseccionBaja.add(jCheckBoxCompletada);
 
         //Prioridad
         JPanel prioridad = new JPanel();
         prioridad.setLayout(new BoxLayout(prioridad, BoxLayout.X_AXIS));
 
-        JRadioButton alta2 = new JRadioButton("Alta");
-        JRadioButton normal2 = new JRadioButton("Normal");
-        JRadioButton baja2 = new JRadioButton("Baja", true);
+        JRadioButton jRButtonAlta2 = new JRadioButton("Alta");
+        jRButtonAlta2.setActionCommand("ALTA");
+        JRadioButton jRButtonNormal2 = new JRadioButton("Normal");
+        jRButtonNormal2.setActionCommand("NORMAL");
+        JRadioButton jRButtonBaja2 = new JRadioButton("Baja", true);
+        jRButtonBaja2.setActionCommand("BAJA");
 
-        prioridad.add(alta2);
-        prioridad.add(normal2);
-        prioridad.add(baja2);
+        ActionListener escuchadorTipoTarea = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                tipoTarea = actionEvent.getActionCommand();
+                System.out.println(actionEvent);
+            }
+        };
+        jRButtonAlta2.addActionListener(escuchadorTipoTarea);
+        jRButtonNormal2.addActionListener(escuchadorTipoTarea);
+        jRButtonBaja2.addActionListener(escuchadorTipoTarea);
+
+
+        prioridad.add(jRButtonAlta2);
+        prioridad.add(jRButtonNormal2);
+        prioridad.add(jRButtonBaja2);
 
         ButtonGroup grupoPrioridad2 = new ButtonGroup();
-        grupoPrioridad2.add(alta2);
-        grupoPrioridad2.add(normal2);
-        grupoPrioridad2.add(baja2);
+        grupoPrioridad2.add(jRButtonAlta2);
+        grupoPrioridad2.add(jRButtonNormal2);
+        grupoPrioridad2.add(jRButtonBaja2);
 
         jPanelseccionBaja.add(prioridad);
 
@@ -221,11 +279,18 @@ public class Panel extends JPanel implements InterrogaVista{
         botones.setLayout(new BoxLayout(botones, BoxLayout.X_AXIS));
 
         JButton jButtonNuevo = new JButton("Nuevo");
-        jButtonNuevo.setActionCommand("nuevo");
+        jButtonNuevo.setActionCommand("NUEVO");
         JButton jButtonActualiza = new JButton("Actualiza");
-        jButtonActualiza.setActionCommand("actualiza");
+        jButtonActualiza.setActionCommand("ACTUALIZA");
         JButton jButtonBorra = new JButton("Borra");
-        jButtonBorra.setActionCommand("borra");
+        jButtonBorra.setActionCommand("BORRA");
+
+
+        jButtonAplicarFiltros.addActionListener(escuchadorBoton);
+        jButtonNuevo.addActionListener(escuchadorBoton);
+        jButtonBorra.addActionListener(escuchadorBoton);
+        jButtonActualiza.addActionListener(escuchadorBoton);
+
 
         botones.add(jButtonNuevo);
         botones.add(jButtonActualiza);
@@ -244,23 +309,33 @@ public class Panel extends JPanel implements InterrogaVista{
     }
 
     @Override
+    public String getFiltroPrioridad() {
+        return tipoFiltroPrioridad;
+    }
+
+    @Override
+    public String getFiltroCompletado() {
+        return tipoFiltroCompletado;
+    }
+
+    @Override
     public String getTitulo() {
-        return null ;
+        return jTextFieldTitulo.getText();
     }
 
     @Override
     public String getDescripcion() {
-        return null;
+        return jTextAreaDescripcion.getText();
     }
 
     @Override
-    public Prioridad getPrioridad() {
-        return null;
+    public String getPrioridad() {
+        return tipoTarea;
     }
 
     @Override
     public boolean getCompletado() {
-        return false;
+        return jCheckBoxCompletada.isSelected();
     }
 
     @Override
