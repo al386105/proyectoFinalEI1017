@@ -34,10 +34,10 @@ public class GestorTareasTest {
 //        gestorTareas.anadirTarea("Ir al dentista", "Limpieza bucal a las 16 30", Prioridad.NORMAL, false);
 //        gestorTareas.anadirTarea("Listar Compra", "Hacer lista de la compra", Prioridad.BAJA, false);
 //        gestorTareas.anadirTarea("Comprar", "Ir a comprar", Prioridad.ALTA, false);
-        gestorTareas.anadirTarea(llamarDentista);
-        gestorTareas.anadirTarea(irDentista);
-        gestorTareas.anadirTarea(listarCompra);
-        gestorTareas.anadirTarea(hacerCompra);
+//        gestorTareas.anadirTarea(llamarDentista);
+//        gestorTareas.anadirTarea(irDentista);
+//        gestorTareas.anadirTarea(listarCompra);
+//        gestorTareas.anadirTarea(hacerCompra);
     }
 
     @Test

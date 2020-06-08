@@ -13,13 +13,13 @@ public class GestorTareas implements Serializable {
     private Map<Integer, Tarea> tareas; //Clave --> codigo de la tarea
     private transient InformaVista vista;
     private transient Filtro filtro;
-//    private transient FabricaTareas fabricaTareas;
+    private static FabricaTareas fabricaTareas;
 
 
 
     public GestorTareas(){
         this.tareas = new HashMap<Integer, Tarea>();
-//        fabricaTareas = new FabricaTareas();
+        fabricaTareas = new FabricaTareas();
     }
 
     public void setVista(InformaVista vista) { this.vista = vista; }
@@ -31,15 +31,15 @@ public class GestorTareas implements Serializable {
         return false;
     }
 
-    public void anadirTarea(Tarea tarea){
-        tareas.put(tarea.getCodigo(), tarea);
-    }
-
-//    public void anadirTarea(String titulo, String descripcion, Prioridad prioridad, boolean completada){
-//        System.out.println(titulo + descripcion + prioridad + completada);
-//        Tarea tareaNueva = fabricaTareas.getTarea(titulo, descripcion, prioridad, completada);
-//        tareas.put(tareaNueva.getCodigo(), tareaNueva);
+//    public void anadirTarea(Tarea tarea){
+//        tareas.put(tarea.getCodigo(), tarea);
 //    }
+
+    public void anadirTarea(String titulo, String descripcion, Prioridad prioridad, boolean completada){
+        System.out.println(titulo + descripcion + prioridad + completada);
+        Tarea tareaNueva = fabricaTareas.getTarea(titulo, descripcion, prioridad, completada);
+        tareas.put(tareaNueva.getCodigo(), tareaNueva);
+    }
 
     public void borrarTarea(int codigoTarea) throws TareaNoExistenteException{
         if(!existeTarea(codigoTarea)) throw new TareaNoExistenteException();
