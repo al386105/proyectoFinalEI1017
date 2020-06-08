@@ -23,7 +23,6 @@ public class ImportarDatos {
                 modelo.setGestorTareas(nueva);
                 modelo.setVista(new ImplementacionVista());
                 Accion.gestorTareas = nueva;
-                JOptionPane.showMessageDialog(null, "Datos importados correctamente");
             } finally {
                 if (ois != null) ois.close();
             }

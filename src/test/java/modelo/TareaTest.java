@@ -4,8 +4,8 @@ import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TareaTest {
     private static Tarea llamarDentista;
@@ -26,7 +26,9 @@ public class TareaTest {
 
     @Test
     public void compararTareaTest(){
-        assertThat(hacerCompra2.equals(hacerCompra), is(false));
-        assertThat(hacerCompra2.equals(hacerCompra2), is(true));
+        assertFalse(hacerCompra2.equals(hacerCompra));
+        assertTrue(hacerCompra2.equals(hacerCompra2));
+        assertFalse(llamarDentista.equals(listarCompra));
+
     }
 }

@@ -4,10 +4,7 @@ import controlador.Controlador;
 import modelo.GestorTareas;
 import modelo.InterrogaModelo;
 import modelo.TareaNoExistenteException;
-
-import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -52,8 +49,7 @@ public class Panel extends JPanel implements InterrogaVista{
             public void actionPerformed(ActionEvent actionEvent) {
                 String comando = actionEvent.getActionCommand();
                 if(comando.equals("NUEVO")) {
-                    controlador.anadirTarea();
-                    cargarDatosTabla();
+                    nuevo();
                 }
                 else if (comando.equals("BORRA")){
                     try{
@@ -93,7 +89,6 @@ public class Panel extends JPanel implements InterrogaVista{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 tipoFiltroPrioridad = actionEvent.getActionCommand();
-                System.out.println(actionEvent);
             }
         };
         jRButtonAlta.addActionListener(escuchadorTipoFiltroPrioridad);
@@ -129,7 +124,6 @@ public class Panel extends JPanel implements InterrogaVista{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 tipoFiltroCompletado = actionEvent.getActionCommand();
-                System.out.println(actionEvent);
             }
         };
         jRButtonCompletada.addActionListener(escuchadorFiltroCompletado);
@@ -211,7 +205,7 @@ public class Panel extends JPanel implements InterrogaVista{
         descripcion.setLayout(new BoxLayout(descripcion, BoxLayout.X_AXIS));
 
         descripcion.add(new JLabel("Descripcion: "));
-        jTextAreaDescripcion = new JTextArea(5,1);
+        jTextAreaDescripcion = new JTextArea(3,1);
         descripcion.add(jTextAreaDescripcion);
 
         jPanelseccionBaja.add(descripcion);
@@ -236,9 +230,9 @@ public class Panel extends JPanel implements InterrogaVista{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 tipoTarea = actionEvent.getActionCommand();
-                System.out.println(actionEvent);
             }
         };
+
         jRButtonAlta2.addActionListener(escuchadorTipoTarea);
         jRButtonNormal2.addActionListener(escuchadorTipoTarea);
         jRButtonBaja2.addActionListener(escuchadorTipoTarea);
@@ -278,7 +272,6 @@ public class Panel extends JPanel implements InterrogaVista{
         jPanelseccionBaja.add(botones);
 
         this.add(jPanelseccionBaja);
-
     }
 
     private void borrar() throws TareaNoExistenteException {
@@ -291,6 +284,17 @@ public class Panel extends JPanel implements InterrogaVista{
             cargarDatosTabla();
         }
     }
+
+    private void nuevo() {
+        controlador.anadirTarea();
+        cargarDatosTabla();
+    }
+
+    public void aplicarFiltros(Collection<Tarea> tareasFiltradas){
+        tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
+        tabla.ajustarAnchoColumnas();
+    }
+
 
     public void cargarDatosTabla(){
         String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};
@@ -336,11 +340,6 @@ public class Panel extends JPanel implements InterrogaVista{
     @Override
     public boolean getCompletado() {
         return jCheckBoxCompletada.isSelected();
-    }
-
-    public void aplicarFiltros(Collection<Tarea> tareasFiltradas){
-        tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
-        tabla.ajustarAnchoColumnas();
     }
 
     @Override

@@ -10,12 +10,11 @@ public class Tabla extends JTable {
 
     public Tabla(AbstractTableModel modelo){
         super(modelo);
-        //setAutoCreateRowSorter(true); //Ordenar Datos
         setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         ajustarAnchoColumnas();
     }
 
-    //Se ajusta el anchoo de las columnas a las celdas
+    //Se ajusta el ancho de las columnas a las celdas
     public void ajustarAnchoColumnas(){
         for (int column = 0; column < getColumnCount(); column++) {
             TableColumn tableColumn = getColumnModel().getColumn(column);

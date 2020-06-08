@@ -1,20 +1,19 @@
 package controlador;
 
+import modelo.TareaNoExistenteException;
 import modelo.tarea.Prioridad;
-import modelo.tarea.Tarea;
 import vista.InterrogaVista;
 
-public class AnadirTarea extends Accion {
 
+public class ActualizarTarea extends Accion {
     @Override
-    public void ejecutaAccion() {
+    public void ejecutaAccion() throws TareaNoExistenteException {
         InterrogaVista vistaPanel = vista.getPanel();
+        int codigo = vistaPanel.getCodigo();
         String tituloTarea = vistaPanel.getTitulo();
         String descripcionTarea = vistaPanel.getDescripcion();
         String prioridadTarea = vistaPanel.getPrioridad().toUpperCase();
         boolean completado = vistaPanel.getCompletado();
-        Tarea tarea = new Tarea(tituloTarea, descripcionTarea, Prioridad.valueOf(prioridadTarea), completado);
-        gestorTareas.anadirTarea(tarea);
-        //gestorTareas.anadirTarea(tituloTarea, descripcionTarea, Prioridad.valueOf(prioridadTarea), completado);
+        gestorTareas.actualizarTarea(codigo, tituloTarea, descripcionTarea, Prioridad.valueOf(prioridadTarea),completado);
     }
 }

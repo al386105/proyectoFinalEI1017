@@ -3,7 +3,6 @@ package vista;
 import controlador.Controlador;
 import modelo.InterrogaModelo;
 import modelo.tarea.Tarea;
-
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;

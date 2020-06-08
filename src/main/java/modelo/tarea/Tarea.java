@@ -3,14 +3,12 @@ package modelo.tarea;
 import java.io.Serializable;
 
 public class Tarea implements Serializable {
-    //ATRIBUTOS
     private int codigo;
     private String titulo;
     private String descripcion;
     private Prioridad prioridad;
     protected boolean completada;
 
-    //CONSTRUCTORES
     public Tarea(){ super(); }
 
     public Tarea(String titulo, String descripcion, Prioridad prioridad, boolean completada){
@@ -21,7 +19,6 @@ public class Tarea implements Serializable {
         this.completada = completada;
     }
 
-    //METODOS
     public int getCodigo() {
         return codigo;
     }

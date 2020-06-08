@@ -20,9 +20,6 @@ public class FiltrarTest {
     private static FiltroPorPrioridad filtroPorPrioridad;
     private static FiltroPorEstado filtroPorEstado;
 
-    //TODO: para eliminar codigo repetido a lo mejor es buena idea usar beforeEach y afterEach para inicializar cda listaFiltrada
-
-
     @BeforeAll
     public static void init(){
         gestorTareas = new GestorTareas();

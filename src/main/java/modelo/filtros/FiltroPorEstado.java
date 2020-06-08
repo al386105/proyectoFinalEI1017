@@ -2,8 +2,6 @@ package modelo.filtros;
 
 
 import modelo.tarea.Tarea;
-
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
