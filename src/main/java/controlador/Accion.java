@@ -1,6 +1,5 @@
 package controlador;
 
-import modelo.FabricaTareas;
 import modelo.GestorTareas;
 import modelo.TareaNoExistenteException;
 import vista.InterrogaVista;

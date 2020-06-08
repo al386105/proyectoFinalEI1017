@@ -1,15 +1,11 @@
 package controlador;
 
-
-import modelo.TareaNoExistenteException;
 import modelo.filtros.Filtro;
 import modelo.filtros.FiltroPorEstado;
 import modelo.filtros.FiltroPorPrioridad;
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 import vista.InterrogaVista;
-
-import java.lang.reflect.Field;
 import java.util.Collection;
 
 public class AplicarFiltros extends Accion {
@@ -22,12 +18,12 @@ public class AplicarFiltros extends Accion {
         Collection<Tarea> todasTareas = gestorTareas.devolverTareas();
         Collection<Tarea> tareasFiltradas;
         Filtro filtro;
-        if(completado.equals("true")){
+        if(completado.equals("FILTRO COMPLETADAS")){
             filtro = new FiltroPorEstado(true);
             gestorTareas.setFiltro(filtro);
             tareasFiltradas = gestorTareas.filtrar(todasTareas);
         }
-        else if (completado.equals("false")){
+        else if (completado.equals("FILTRO NO COMPLETADAS")){
             filtro = new FiltroPorEstado(false);
             gestorTareas.setFiltro(filtro);
             tareasFiltradas = gestorTareas.filtrar(todasTareas);
