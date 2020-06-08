@@ -4,6 +4,7 @@ import controlador.Controlador;
 import modelo.GestorTareas;
 import modelo.InterrogaModelo;
 import modelo.TareaNoExistenteException;
+import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -28,6 +29,9 @@ public class Panel extends JPanel implements InterrogaVista{
     private String tipoTarea;
     private String tipoFiltroPrioridad;
     private String tipoFiltroCompletado;
+    private JRadioButton jRButtonAlta2;
+    private JRadioButton jRButtonNormal2;
+    private JRadioButton jRButtonBaja2;
 
 
     public Panel(){
@@ -179,7 +183,11 @@ public class Panel extends JPanel implements InterrogaVista{
                 ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                 if(lsm.getMinSelectionIndex() == -1) return;
 
-
+                if (!e.getValueIsAdjusting()) {
+                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+                    int codTarea = (Integer) modeloTabla.getValueAt(fila, -1);
+                    detallesTarea(codTarea);
+                }
             }
         };
 
@@ -202,7 +210,7 @@ public class Panel extends JPanel implements InterrogaVista{
         titulo.setLayout(new BoxLayout(titulo, BoxLayout.X_AXIS));
 
         titulo.add(new JLabel("Título: "));
-        jTextFieldTitulo = new JTextField("Volver a mirar las estrellas. ");
+        jTextFieldTitulo = new JTextField();
         titulo.add(jTextFieldTitulo);
 
         jPanelseccionBaja.add(titulo);
@@ -230,11 +238,11 @@ public class Panel extends JPanel implements InterrogaVista{
         JLabel jLabelTituloPrioridad = new JLabel("Prioridad: ");
         prioridad.add(jLabelTituloPrioridad);
 
-        JRadioButton jRButtonAlta2 = new JRadioButton("Alta");
+        jRButtonAlta2 = new JRadioButton("Alta");
         jRButtonAlta2.setActionCommand("ALTA");
-        JRadioButton jRButtonNormal2 = new JRadioButton("Normal");
+        jRButtonNormal2 = new JRadioButton("Normal");
         jRButtonNormal2.setActionCommand("NORMAL");
-        JRadioButton jRButtonBaja2 = new JRadioButton("Baja", true);
+        jRButtonBaja2 = new JRadioButton("Baja", true);
         jRButtonBaja2.setActionCommand("BAJA");
 
         ActionListener escuchadorTipoTarea = new ActionListener() {
@@ -309,6 +317,19 @@ public class Panel extends JPanel implements InterrogaVista{
         aplicarFiltros();
     }
 
+    private void detallesTarea(int codigoTarea){
+        Tarea tareaSeleccionada = modelo.getGestorTareas().devolverTarea(codigoTarea);
+        jTextFieldTitulo.setText(tareaSeleccionada.getTitulo());
+        jTextAreaDescripcion.setText(tareaSeleccionada.getDescripcion());
+        //Modificamos los botones segun estado de la tarea seleccionada:
+        if(tareaSeleccionada.completada()) jCheckBoxCompletada.setSelected(true);
+        else jCheckBoxCompletada.setSelected(false);
+        //Modificamos los botones segun prioridad
+        if(tareaSeleccionada.getPrioridad().equals(Prioridad.ALTA)) jRButtonAlta2.setSelected(true);
+        else if(tareaSeleccionada.getPrioridad().equals(Prioridad.NORMAL)) jRButtonNormal2.setSelected(true);
+        else jRButtonBaja2.setSelected(true);
+    }
+
     public void mostrarFiltros(Collection<Tarea> tareasFiltradas){
         tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
         tabla.ajustarAnchoColumnas();
@@ -321,6 +342,8 @@ public class Panel extends JPanel implements InterrogaVista{
         tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareas));
         tabla.ajustarAnchoColumnas();
     }
+
+
 
     @Override
     public Panel getPanel() {
