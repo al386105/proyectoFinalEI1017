@@ -299,14 +299,14 @@ public class Panel extends JPanel implements InterrogaVista{
 
     @Override
     public String getFiltroPrioridad() {
-        System.out.println(tipoFiltroPrioridad+ " TFP");
-        return tipoFiltroPrioridad;
+        if(tipoFiltroPrioridad != null ) return tipoFiltroPrioridad;
+        return "TODAS";
     }
 
     @Override
     public String getFiltroCompletado() {
-        System.out.println(tipoFiltroCompletado + " TFC");
-        return tipoFiltroCompletado;
+        if(tipoFiltroCompletado != null) return tipoFiltroCompletado;
+        else return "TODAS";
     }
 
     @Override
@@ -321,13 +321,12 @@ public class Panel extends JPanel implements InterrogaVista{
 
     @Override
     public String getPrioridad() {
-        System.out.println( tipoTarea + " TT");
-        return tipoTarea;
+        if(tipoTarea != null) return tipoTarea;
+        else return "BAJA";
     }
 
     @Override
     public boolean getCompletado() {
-        System.out.println(jCheckBoxCompletada.isSelected());
         return jCheckBoxCompletada.isSelected();
     }
 

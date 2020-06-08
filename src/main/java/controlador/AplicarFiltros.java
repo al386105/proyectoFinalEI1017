@@ -1,6 +1,5 @@
 package controlador;
 
-import modelo.filtros.Filtro;
 import modelo.filtros.FiltroPorEstado;
 import modelo.filtros.FiltroPorPrioridad;
 import modelo.tarea.Prioridad;
@@ -17,33 +16,28 @@ public class AplicarFiltros extends Accion {
         String prioridad = vistaPanel.getFiltroPrioridad();
         Collection<Tarea> todasTareas = gestorTareas.devolverTareas();
         Collection<Tarea> tareasFiltradas;
-        Filtro filtro;
-        if(completado.equals("FILTRO COMPLETADAS")){
-            filtro = new FiltroPorEstado(true);
-            gestorTareas.setFiltro(filtro);
+
+        if(prioridad.equals("FILTRO ALTA")){
+            gestorTareas.setFiltro(new FiltroPorPrioridad(Prioridad.ALTA));
             tareasFiltradas = gestorTareas.filtrar(todasTareas);
+        }
+        else if (prioridad.equals("FILTRO NORMAL")){
+            gestorTareas.setFiltro(new FiltroPorPrioridad((Prioridad.NORMAL)));
+            tareasFiltradas = gestorTareas.filtrar(todasTareas);
+        }
+        else if (prioridad.equals("FILTRO BAJA")){
+            gestorTareas.setFiltro(new FiltroPorPrioridad(Prioridad.BAJA));
+            tareasFiltradas = gestorTareas.filtrar(todasTareas);
+        }
+        else tareasFiltradas = todasTareas;
+
+
+        if(completado.equals("FILTRO COMPLETADAS")){
+            gestorTareas.setFiltro(new FiltroPorEstado(true));
+            tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
         }
         else if (completado.equals("FILTRO NO COMPLETADAS")){
-            filtro = new FiltroPorEstado(false);
-            gestorTareas.setFiltro(filtro);
-            tareasFiltradas = gestorTareas.filtrar(todasTareas);
-        }
-        else {
-            tareasFiltradas = todasTareas;
-        }
-        if(prioridad.equals("ALTA")){
-            filtro = new FiltroPorPrioridad(Prioridad.ALTA);
-            gestorTareas.setFiltro(filtro);
-            tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
-        }
-        else if (prioridad.equals("NORMAL")){
-            filtro = new FiltroPorPrioridad(Prioridad.NORMAL);
-            gestorTareas.setFiltro(filtro);
-            tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
-        }
-        else if (prioridad.equals("BAJA")){
-            filtro = new FiltroPorPrioridad(Prioridad.BAJA);
-            gestorTareas.setFiltro(filtro);
+            gestorTareas.setFiltro(new FiltroPorEstado(false));
             tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
         }
 
