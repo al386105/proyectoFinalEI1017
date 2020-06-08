@@ -60,8 +60,13 @@ public class Panel extends JPanel implements InterrogaVista{
                     }
                 }
                 else if (comando.equals("ACTUALIZA")){
-                    //TODO: FALTA CAMBIAR ESTO
-                    cargarDatosTabla();
+                    try{
+                        actualiza();
+                    } catch (TareaNoExistenteException | IndexOutOfBoundsException exception){
+                        vista.accionDenegada(exception.getMessage());
+
+                    }
+
                 }
                 else {
                     controlador.aplicarFiltros();
@@ -295,6 +300,16 @@ public class Panel extends JPanel implements InterrogaVista{
         tabla.ajustarAnchoColumnas();
     }
 
+    public void actualiza() throws TareaNoExistenteException{
+        int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+        if (fila == -1){
+            vista.accionDenegada("No se ha seleccionado ninguna tarea de la tabla");
+        }
+        else {
+            controlador.actualizarTarea();
+            cargarDatosTabla();
+        }
+    }
 
     public void cargarDatosTabla(){
         String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};

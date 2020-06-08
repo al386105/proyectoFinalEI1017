@@ -31,12 +31,14 @@ public class GestorTareas implements Serializable {
         return false;
     }
 
-//    public void anadirTarea(Tarea tarea){
-//        tareas.put(tarea.getCodigo(), tarea);
-//    }
+
+
+    //TODO: El siguiente método se utiliza unicamente para los tests
+    public void anadirTarea(Tarea tarea){
+        tareas.put(tarea.getCodigo(), tarea);
+    }
 
     public void anadirTarea(String titulo, String descripcion, Prioridad prioridad, boolean completada){
-        System.out.println(titulo + descripcion + prioridad + completada);
         Tarea tareaNueva = fabricaTareas.getTarea(titulo, descripcion, prioridad, completada);
         tareas.put(tareaNueva.getCodigo(), tareaNueva);
     }

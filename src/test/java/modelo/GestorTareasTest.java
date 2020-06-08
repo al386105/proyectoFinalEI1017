@@ -29,17 +29,15 @@ public class GestorTareasTest {
         listarCompra = new Tarea("Listar Compra", "Hacer lista de la compra", Prioridad.BAJA, false);
         hacerCompra = new Tarea("Comprar", "Ir a comprar", Prioridad.ALTA, false);
         hacerCompra2 = new Tarea("Comprar", "Comprar mas", Prioridad.ALTA, false);
-        //Añadimos tareas al gestor:
-//        gestorTareas.anadirTarea("Llamar al dentista", "Pedir cita para limpieza bucal", Prioridad.ALTA, false);
-//        gestorTareas.anadirTarea("Ir al dentista", "Limpieza bucal a las 16 30", Prioridad.NORMAL, false);
-//        gestorTareas.anadirTarea("Listar Compra", "Hacer lista de la compra", Prioridad.BAJA, false);
-//        gestorTareas.anadirTarea("Comprar", "Ir a comprar", Prioridad.ALTA, false);
-//        gestorTareas.anadirTarea(llamarDentista);
-//        gestorTareas.anadirTarea(irDentista);
-//        gestorTareas.anadirTarea(listarCompra);
-//        gestorTareas.anadirTarea(hacerCompra);
-    }
 
+
+        //Añadimos tareas al gestor:
+        gestorTareas.anadirTarea(llamarDentista);
+        gestorTareas.anadirTarea(irDentista);
+        gestorTareas.anadirTarea(listarCompra);
+        gestorTareas.anadirTarea(hacerCompra);
+
+    }
     @Test
     public void existeTareaTest(){
         assertTrue(gestorTareas.existeTarea(llamarDentista.getCodigo()));

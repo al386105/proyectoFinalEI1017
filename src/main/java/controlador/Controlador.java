@@ -13,4 +13,6 @@ public interface Controlador {
 
     void aplicarFiltros();
 
+    void actualizarTarea() throws TareaNoExistenteException;
+
 }

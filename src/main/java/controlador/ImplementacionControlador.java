@@ -39,8 +39,12 @@ public class ImplementacionControlador implements Controlador {
         new BorrarTarea().ejecutaAccion();
     }
 
-
     @Override
     public void aplicarFiltros() { new AplicarFiltros().ejecutaAccion(); }
+
+    @Override
+    public void actualizarTarea() throws TareaNoExistenteException {
+        new ActualizarTarea().ejecutaAccion();
+    }
 
 }
