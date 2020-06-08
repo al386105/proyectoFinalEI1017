@@ -51,7 +51,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
 
     private void ventanaPrincipal(){
         JFrame ventana = new JFrame("Mis tareas");
-        panel.cargarDatosTabla();
         ventana.add(this.panel);
         ventana.pack();
         ventana.setVisible(true);
@@ -62,6 +61,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
             @Override
             public void windowOpened(WindowEvent e) {
                 controlador.importarDatos();
+                panel.cargarDatosTabla();
             }
 
             @Override

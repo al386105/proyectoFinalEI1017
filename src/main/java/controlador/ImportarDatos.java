@@ -21,14 +21,14 @@ public class ImportarDatos {
                 //actualizamos la nueva base de  datos en el modelo MVC
                 GestorTareas nueva = (GestorTareas) ois.readObject();
                 modelo.setGestorTareas(nueva);
-                modelo.setVista(new ImplementacionVista()); //si no cambiamos la vista, no se actualiza
+                modelo.setVista(new ImplementacionVista());
                 Accion.gestorTareas = nueva;
                 JOptionPane.showMessageDialog(null, "Datos importados correctamente");
             } finally {
                 if (ois != null) ois.close();
             }
         } catch (FileNotFoundException e) {
-            JOptionPane.showMessageDialog(null, "No se ha encontrado el fichero",
+            JOptionPane.showMessageDialog(null, "No se ha encontrado el fichero AgendaTareas.bin",
                     "Error", JOptionPane.WARNING_MESSAGE);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FiltroPorEstado implements Filtro, Serializable {
+public class FiltroPorEstado implements Filtro {
     boolean completada;
 
     public FiltroPorEstado(){ super(); }

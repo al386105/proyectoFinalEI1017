@@ -53,20 +53,21 @@ public class Panel extends JPanel implements InterrogaVista{
                 String comando = actionEvent.getActionCommand();
                 if(comando.equals("NUEVO")) {
                     controlador.anadirTarea();
+                    cargarDatosTabla();
                 }
                 else if (comando.equals("BORRA")){
                     try{
-                        controlador.borrarTarea();
-                    } catch (TareaNoExistenteException exception){
+                        borrar();
+                    } catch (TareaNoExistenteException | IndexOutOfBoundsException exception){
                         vista.accionDenegada(exception.getMessage());
+
                     }
                 }
                 else if (comando.equals("ACTUALIZA")){
-                    System.out.println(actionEvent);
+                    //TODO: FALTA CAMBIAR ESTO
                     cargarDatosTabla();
                 }
                 else {
-                    System.out.println(actionEvent);
                     controlador.aplicarFiltros();
                 }
             }
@@ -265,14 +266,10 @@ public class Panel extends JPanel implements InterrogaVista{
         JButton jButtonBorra = new JButton("Borra");
         jButtonBorra.setActionCommand("BORRA");
 
-
-
-
         jButtonAplicarFiltros.addActionListener(escuchadorBoton);
         jButtonNuevo.addActionListener(escuchadorBoton);
         jButtonBorra.addActionListener(escuchadorBoton);
         jButtonActualiza.addActionListener(escuchadorBoton);
-
 
         botones.add(jButtonNuevo);
         botones.add(jButtonActualiza);
@@ -282,6 +279,17 @@ public class Panel extends JPanel implements InterrogaVista{
 
         this.add(jPanelseccionBaja);
 
+    }
+
+    private void borrar() throws TareaNoExistenteException {
+        int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+        if (fila == -1){
+            vista.accionDenegada("No se ha seleccionado ninguna tarea de la tabla");
+        }
+        else {
+            controlador.borrarTarea();
+            cargarDatosTabla();
+        }
     }
 
     public void cargarDatosTabla(){
@@ -338,7 +346,9 @@ public class Panel extends JPanel implements InterrogaVista{
     @Override
     public int getCodigo() {
         int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-        int codigoTarea = (int) modeloTabla.getValueAt(fila, 5);
+        //Se indica la columna -1 para que se obtenga el codigo de la tarea
+        int codigoTarea = (int) modeloTabla.getValueAt(fila, -1);
         return codigoTarea;
     }
+
 }

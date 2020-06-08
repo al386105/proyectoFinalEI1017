@@ -14,7 +14,7 @@ import java.util.Map;
 public class GestorTareas implements Serializable {
     private Map<Integer, Tarea> tareas; //Clave --> codigo de la tarea
     private transient InformaVista vista;
-    private Filtro filtro;
+    private transient Filtro filtro;
 
 
 
