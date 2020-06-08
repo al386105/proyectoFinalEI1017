@@ -24,14 +24,10 @@ public class ImplementacionControlador implements Controlador {
     public InterrogaVista getVista() { return vista; }
 
     @Override
-    public void importarDatos() {
-
-    }
+    public void importarDatos() { new ImportarDatos().cargarDatos(modelo); }
 
     @Override
-    public void exportarDatos() {
-
-    }
+    public void exportarDatos() { new ExportarDatos().guardarDatos(modelo.getGestorTareas());  }
 
     @Override
     public void anadirTarea() {

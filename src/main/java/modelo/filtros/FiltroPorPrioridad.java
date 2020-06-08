@@ -3,11 +3,12 @@ package modelo.filtros;
 import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FiltroPorPrioridad implements Filtro {
+public class FiltroPorPrioridad implements Filtro, Serializable {
     Prioridad prioridad;
 
     public FiltroPorPrioridad(){ super(); }

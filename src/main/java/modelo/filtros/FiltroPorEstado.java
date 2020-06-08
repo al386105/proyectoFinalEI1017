@@ -3,11 +3,12 @@ package modelo.filtros;
 
 import modelo.tarea.Tarea;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-public class FiltroPorEstado implements Filtro {
+public class FiltroPorEstado implements Filtro, Serializable {
     boolean completada;
 
     public FiltroPorEstado(){ super(); }

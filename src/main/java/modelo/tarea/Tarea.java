@@ -1,6 +1,8 @@
 package modelo.tarea;
 
-public class Tarea {
+import java.io.Serializable;
+
+public class Tarea implements Serializable {
     //ATRIBUTOS
     private int codigo;
     private String titulo;

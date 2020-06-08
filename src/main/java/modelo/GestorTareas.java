@@ -5,14 +5,15 @@ import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 import vista.InformaVista;
 
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GestorTareas {
+public class GestorTareas implements Serializable {
     private Map<Integer, Tarea> tareas; //Clave --> codigo de la tarea
-    private InformaVista vista;
+    private transient InformaVista vista;
     private Filtro filtro;
 
 
