@@ -20,9 +20,10 @@ public interface InterrogaVista {
 
     boolean getCompletado();
 
+    void mostrarFiltros(Collection<Tarea> tareas);
+
     int getCodigo() throws TareaNoExistenteException;
 
-    void aplicarFiltros(Collection<Tarea> tareasFiltradas);
 
 
 

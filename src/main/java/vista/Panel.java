@@ -8,6 +8,7 @@ import modelo.tarea.Tarea;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
@@ -48,28 +49,22 @@ public class Panel extends JPanel implements InterrogaVista{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String comando = actionEvent.getActionCommand();
-                if(comando.equals("NUEVO")) {
-                    nuevo();
-                }
-                else if (comando.equals("BORRA")){
-                    try{
-                        borrar();
-                    } catch (TareaNoExistenteException | IndexOutOfBoundsException exception){
-                        vista.accionDenegada(exception.getMessage());
-
+                try {
+                    switch (comando){
+                        case "NUEVO":
+                            nuevo();
+                            break;
+                        case "BORRA":
+                            borrar();
+                            break;
+                        case "ACTUALIZA":
+                            actualiza();
+                            break;
+                        default:
+                            aplicarFiltros();
                     }
-                }
-                else if (comando.equals("ACTUALIZA")){
-                    try{
-                        actualiza();
-                    } catch (TareaNoExistenteException | IndexOutOfBoundsException exception){
-                        vista.accionDenegada(exception.getMessage());
-
-                    }
-
-                }
-                else {
-                    controlador.aplicarFiltros();
+                } catch (TareaNoExistenteException | IndexOutOfBoundsException exception){
+                    vista.accionDenegada("No se ha seleccionado ninguna tarea de la tabla");
                 }
             }
         };
@@ -78,6 +73,8 @@ public class Panel extends JPanel implements InterrogaVista{
 
         JPanel jPanelSeccionArriba = new JPanel();
         jPanelSeccionArriba.setLayout(new BoxLayout(jPanelSeccionArriba, BoxLayout.X_AXIS));
+        jPanelSeccionArriba.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
 
 
         //Prioridad
@@ -102,7 +99,7 @@ public class Panel extends JPanel implements InterrogaVista{
         jRButtonTodas.addActionListener(escuchadorTipoFiltroPrioridad);
 
         JPanel jPanelPrioridad = new JPanel();
-        jPanelPrioridad.setLayout(new BoxLayout(jPanelPrioridad, BoxLayout.PAGE_AXIS));
+        jPanelPrioridad.setLayout(new GridLayout(5, 1));
         jPanelPrioridad.add(new JLabel("Prioridad"));
         jPanelPrioridad.add(jRButtonAlta);
         jPanelPrioridad.add(jRButtonNormal);
@@ -136,7 +133,8 @@ public class Panel extends JPanel implements InterrogaVista{
         jRButtonTodasB.addActionListener(escuchadorFiltroCompletado);
 
         JPanel jPanelCompletadas = new JPanel();
-        jPanelCompletadas.setLayout(new BoxLayout(jPanelCompletadas, BoxLayout.PAGE_AXIS));
+        jPanelCompletadas.setLayout(new GridLayout(4, 1));
+
         jPanelCompletadas.add(new JLabel("Completadas"));
         jPanelCompletadas.add(jRButtonCompletada);
         jPanelCompletadas.add(jRButtonNoCompletada);
@@ -153,8 +151,6 @@ public class Panel extends JPanel implements InterrogaVista{
         //Botón filtra:
         JButton jButtonAplicarFiltros = new JButton("Aplicar filtros");
         jButtonAplicarFiltros.setActionCommand("APLICARFILTROS");
-
-
         jPanelSeccionArriba.add(jButtonAplicarFiltros);
 
         this.add(jPanelSeccionArriba);
@@ -163,8 +159,11 @@ public class Panel extends JPanel implements InterrogaVista{
         //SECCION LISTA DE TAREAS
 
         JPanel jPanelSeccionMedia = new JPanel();
-        jPanelSeccionMedia.setLayout(new BoxLayout(jPanelSeccionMedia, BoxLayout.X_AXIS));
+        jPanelSeccionMedia.setLayout(new BoxLayout(jPanelSeccionMedia, BoxLayout.PAGE_AXIS));
+        jPanelSeccionMedia.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
+        JLabel nombreSeccionListaTareas = new JLabel("Lista de tareas");
+        jPanelSeccionMedia.add(nombreSeccionListaTareas);
 
         columnas = new String[]{"Tarea", "Descripcion", "Terminada", "Prioridad"};
         Collection<Tarea> tareas = new LinkedList<>();
@@ -175,14 +174,14 @@ public class Panel extends JPanel implements InterrogaVista{
         ListSelectionListener escuchadorTabla = new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                //si se ejecuta este metodo porque se da al boton de actualizar
+                //si se ejecuta este metodo porque se da al boton de actualizar o borrar
                 //y no se selecciona ninguna fila
                 ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                 if(lsm.getMinSelectionIndex() == -1) return;
+
+
             }
         };
-
-
 
         jPanelSeccionMedia.add(tabla);
         Scroll scroll = new Scroll();
@@ -192,10 +191,13 @@ public class Panel extends JPanel implements InterrogaVista{
 
         //SECCION DETALLE DE LA TAREA
         JPanel jPanelseccionBaja = new JPanel();
+        jPanelseccionBaja.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         jPanelseccionBaja.setLayout(new BoxLayout(jPanelseccionBaja, BoxLayout.Y_AXIS));
 
         //Titulo:
 
+        JLabel jLabelTituloSeccionBaja = new JLabel("Detalle de la tarea ");
+        jPanelseccionBaja.add(jLabelTituloSeccionBaja);
         JPanel titulo = new JPanel();
         titulo.setLayout(new BoxLayout(titulo, BoxLayout.X_AXIS));
 
@@ -208,6 +210,7 @@ public class Panel extends JPanel implements InterrogaVista{
         //Descripcion:
         JPanel descripcion = new JPanel();
         descripcion.setLayout(new BoxLayout(descripcion, BoxLayout.X_AXIS));
+        descripcion.setBorder(BorderFactory.createEmptyBorder(5,0,5,0));
 
         descripcion.add(new JLabel("Descripcion: "));
         jTextAreaDescripcion = new JTextArea(3,1);
@@ -223,6 +226,9 @@ public class Panel extends JPanel implements InterrogaVista{
         //Prioridad
         JPanel prioridad = new JPanel();
         prioridad.setLayout(new BoxLayout(prioridad, BoxLayout.X_AXIS));
+        prioridad.setBorder(BorderFactory.createEmptyBorder(5,10,5,10));
+        JLabel jLabelTituloPrioridad = new JLabel("Prioridad: ");
+        prioridad.add(jLabelTituloPrioridad);
 
         JRadioButton jRButtonAlta2 = new JRadioButton("Alta");
         jRButtonAlta2.setActionCommand("ALTA");
@@ -265,6 +271,7 @@ public class Panel extends JPanel implements InterrogaVista{
         JButton jButtonBorra = new JButton("Borra");
         jButtonBorra.setActionCommand("BORRA");
 
+
         jButtonAplicarFiltros.addActionListener(escuchadorBoton);
         jButtonNuevo.addActionListener(escuchadorBoton);
         jButtonBorra.addActionListener(escuchadorBoton);
@@ -280,35 +287,31 @@ public class Panel extends JPanel implements InterrogaVista{
     }
 
     private void borrar() throws TareaNoExistenteException {
-        int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-        if (fila == -1){
-            vista.accionDenegada("No se ha seleccionado ninguna tarea de la tabla");
-        }
-        else {
-            controlador.borrarTarea();
-            cargarDatosTabla();
-        }
+        controlador.borrarTarea();
+        cargarDatosTabla();
+        aplicarFiltros();
     }
 
     private void nuevo() {
         controlador.anadirTarea();
         cargarDatosTabla();
+        aplicarFiltros();
     }
 
-    public void aplicarFiltros(Collection<Tarea> tareasFiltradas){
+    private void aplicarFiltros(){
+        controlador.aplicarFiltros();
+
+    }
+
+    private void actualiza() throws TareaNoExistenteException{
+        controlador.actualizarTarea();
+        cargarDatosTabla();
+        aplicarFiltros();
+    }
+
+    public void mostrarFiltros(Collection<Tarea> tareasFiltradas){
         tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
         tabla.ajustarAnchoColumnas();
-    }
-
-    public void actualiza() throws TareaNoExistenteException{
-        int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-        if (fila == -1){
-            vista.accionDenegada("No se ha seleccionado ninguna tarea de la tabla");
-        }
-        else {
-            controlador.actualizarTarea();
-            cargarDatosTabla();
-        }
     }
 
     public void cargarDatosTabla(){

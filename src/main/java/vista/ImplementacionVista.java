@@ -50,8 +50,9 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
 
     private void ventanaPrincipal(){
         JFrame ventana = new JFrame("Mis tareas");
+        //Establezco un tamaño fijo de la ventana porque queda mejor visualmente en este caso
         ventana.add(this.panel);
-        ventana.pack();
+        ventana.setSize(600, 700);
         ventana.setVisible(true);
 
 
@@ -104,8 +105,8 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
     }
 
     @Override
-    public void aplicarFiltros(Collection<Tarea> tareas){
-        this.panel.aplicarFiltros(tareas);
+    public void mostrarFiltros(Collection<Tarea> tareas){
+        this.panel.mostrarFiltros(tareas);
     }
 
     @Override
