@@ -2,9 +2,12 @@ package vista;
 
 import controlador.Controlador;
 import modelo.InterrogaModelo;
+import modelo.tarea.Tarea;
+
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Collection;
 
 
 public class ImplementacionVista implements InformaVista, InterrogaVista{
@@ -102,13 +105,18 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
     }
 
     @Override
+    public void aplicarFiltros(Collection<Tarea> tareas){
+        this.panel.aplicarFiltros(tareas);
+    }
+
+    @Override
     public boolean getCompletado() {
         return this.panel.getCompletado();
     }
 
     @Override
     public int getCodigo() {
-        return 0;
+        return this.panel.getCodigo();
     }
 
 }

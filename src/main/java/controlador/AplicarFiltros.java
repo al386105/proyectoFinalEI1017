@@ -47,6 +47,9 @@ public class AplicarFiltros extends Accion {
             tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
         }
 
+        vista.aplicarFiltros(tareasFiltradas);
+
+
 
     }
 }

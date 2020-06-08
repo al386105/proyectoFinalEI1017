@@ -13,5 +13,4 @@ public interface Controlador {
 
     void aplicarFiltros();
 
-    void listarTareas();
 }

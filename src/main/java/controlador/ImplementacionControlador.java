@@ -46,11 +46,8 @@ public class ImplementacionControlador implements Controlador {
 
     @Override
     public void aplicarFiltros() {
+        new AplicarFiltros().ejecutaAccion();
 
     }
 
-    @Override
-    public void listarTareas() {
-
-    }
 }

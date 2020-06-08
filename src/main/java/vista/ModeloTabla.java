@@ -39,7 +39,7 @@ public class ModeloTabla extends AbstractTableModel {
             case 3:
                 return datos.get(row).getPrioridad().getDescripcion();
         }
-        return null;
+        return datos.get(row).getCodigo();
 
     }
 

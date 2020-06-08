@@ -23,6 +23,7 @@ public class Panel extends JPanel implements InterrogaVista{
     private InformaVista vista;
     private ModeloTabla modeloTabla;
     private Tabla tabla;
+    private String[] columnas;
     private JTextField jTextFieldTitulo;
     private JTextArea jTextAreaDescripcion;
     private JCheckBox jCheckBoxCompletada;
@@ -165,9 +166,7 @@ public class Panel extends JPanel implements InterrogaVista{
         jPanelSeccionMedia.setLayout(new BoxLayout(jPanelSeccionMedia, BoxLayout.X_AXIS));
 
 
-        String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};
-//        GestorTareas gestorTareas = modelo.getGestorTareas();
-//        Collection<Tarea> tareas = gestorTareas.devolverTareas();
+        columnas = new String[]{"Tarea", "Descripcion", "Terminada", "Prioridad"};
         Collection<Tarea> tareas = new LinkedList<>();
         modeloTabla = new ModeloTabla(columnas, tareas);
         tabla = new Tabla(modeloTabla);
@@ -180,23 +179,10 @@ public class Panel extends JPanel implements InterrogaVista{
                 //y no se selecciona ninguna fila
                 ListSelectionModel lsm = (ListSelectionModel)e.getSource();
                 if(lsm.getMinSelectionIndex() == -1) return;
-
-                if (!e.getValueIsAdjusting()) {
-                    int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
-                    //TODO: Aqui estaria muy bien obtener el codigo
-                    String titulo = (String) modeloTabla.getValueAt(fila, 0);
-                    //datosFactura(codTabla);
-                }
             }
         };
 
-//        ActionListener escuchadorActualiza = new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent actionEvent) {
-//                tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareas));
-//                tabla.ajustarAnchoColumnas();
-//            }
-//        };
+
 
         jPanelSeccionMedia.add(tabla);
         Scroll scroll = new Scroll();
@@ -345,8 +331,15 @@ public class Panel extends JPanel implements InterrogaVista{
         return jCheckBoxCompletada.isSelected();
     }
 
+    public void aplicarFiltros(Collection<Tarea> tareasFiltradas){
+        tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
+        tabla.ajustarAnchoColumnas();
+    }
+
     @Override
     public int getCodigo() {
-        return 0;
+        int fila = tabla.convertRowIndexToModel(tabla.getSelectedRow());
+        int codigoTarea = (int) modeloTabla.getValueAt(fila, 5);
+        return codigoTarea;
     }
 }
