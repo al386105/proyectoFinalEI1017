@@ -17,7 +17,7 @@ public class ImportarDatos {
             try {
                 FileInputStream fis = new FileInputStream("AgendaTareas.bin");
                 ois = new ObjectInputStream(fis);
-                //actualizamos la nueva base de  datos en el modelo MVC
+                //Actualizamos la nueva base de  datos en el modelo MVC
                 GestorTareas nueva = (GestorTareas) ois.readObject();
                 modelo.setGestorTareas(nueva);
                 modelo.setVista(new ImplementacionVista());

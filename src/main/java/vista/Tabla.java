@@ -19,6 +19,5 @@ public class Tabla extends JTable {
         columnModel.getColumn(1).setPreferredWidth(120);
         columnModel.getColumn(2).setPreferredWidth(50);
         columnModel.getColumn(3).setPreferredWidth(80);
-
     }
 }

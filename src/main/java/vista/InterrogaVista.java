@@ -2,7 +2,6 @@ package vista;
 
 import modelo.TareaNoExistenteException;
 import modelo.tarea.Tarea;
-
 import java.util.Collection;
 
 public interface InterrogaVista {

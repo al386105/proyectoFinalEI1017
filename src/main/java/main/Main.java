@@ -3,10 +3,7 @@ package main;
 import controlador.ImplementacionControlador;
 import modelo.GestorTareas;
 import modelo.ImplementacionModelo;
-import modelo.tarea.Prioridad;
-import modelo.tarea.Tarea;
 import vista.ImplementacionVista;
-
 import java.io.Serializable;
 
 
