@@ -98,7 +98,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
         return this.panel.getPrioridad();
     }
 
-    @Override
+
     public void mostrarFiltros(Collection<Tarea> tareas){
         this.panel.mostrarFiltros(tareas);
     }
