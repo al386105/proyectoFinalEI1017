@@ -99,8 +99,9 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
     }
 
 
-    public void mostrarFiltros(Collection<Tarea> tareas){
-        this.panel.mostrarFiltros(tareas);
+    @Override
+    public void mostrarTareasFiltradas(Collection<Tarea> tareas){
+        this.panel.mostrarTareasFiltradas(tareas);
     }
 
     @Override

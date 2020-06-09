@@ -56,9 +56,8 @@ public class GestorTareas implements Serializable {
     public Collection<Tarea> filtrar(Collection<Tarea> tareas){
         return filtro.filtrar(tareas);
     }
-    
-    public Tarea devolverTarea(int codigoTarea){ return tareas.get(codigoTarea); }
 
+    public Tarea devolverTarea(int codigoTarea){ return tareas.get(codigoTarea); }
 
     public Collection<Tarea> devolverTareas(){
         return tareas.values();

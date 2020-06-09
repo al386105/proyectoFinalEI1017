@@ -20,7 +20,7 @@ public interface InterrogaVista {
 
     boolean getCompletado();
 
-    void mostrarFiltros(Collection<Tarea> tareas);
+    void mostrarTareasFiltradas(Collection<Tarea> tareas);
 
     int getCodigo() throws TareaNoExistenteException;
 

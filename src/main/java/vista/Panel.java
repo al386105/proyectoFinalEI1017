@@ -341,7 +341,7 @@ public class Panel extends JPanel implements InterrogaVista, InformaVista{
     }
 
     @Override
-    public void mostrarFiltros(Collection<Tarea> tareasFiltradas){
+    public void mostrarTareasFiltradas(Collection<Tarea> tareasFiltradas){
         tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
         tabla.ajustarAnchoColumnas();
     }
