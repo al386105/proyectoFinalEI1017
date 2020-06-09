@@ -40,8 +40,7 @@ public class AplicarFiltros extends Accion {
             gestorTareas.setFiltro(new FiltroPorEstado(false));
             tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
         }
-
-        vista.mostrarFiltros(tareasFiltradas);
+        gestorTareas.mostrarFiltros(tareasFiltradas);
 
 
 

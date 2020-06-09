@@ -16,7 +16,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 
-public class Panel extends JPanel implements InterrogaVista{
+public class Panel extends JPanel implements InterrogaVista, InformaVista{
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InformaVista vista;
@@ -306,7 +306,6 @@ public class Panel extends JPanel implements InterrogaVista{
 
     private void aplicarFiltros(){
         controlador.aplicarFiltros();
-
     }
 
     private void actualiza() throws TareaNoExistenteException{
@@ -327,11 +326,6 @@ public class Panel extends JPanel implements InterrogaVista{
         else jRButtonBaja2.setSelected(true);
     }
 
-    public void mostrarFiltros(Collection<Tarea> tareasFiltradas){
-        tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
-        tabla.ajustarAnchoColumnas();
-    }
-
     public void cargarDatosTabla(){
         String[] columnas = {"Tarea","Descripcion", "Terminada", "Prioridad"};
         GestorTareas gestorTareas = modelo.getGestorTareas();
@@ -341,6 +335,16 @@ public class Panel extends JPanel implements InterrogaVista{
     }
 
 
+    @Override
+    public void accionDenegada(String cadena) {
+        JOptionPane.showMessageDialog(null, cadena,"Error", JOptionPane.WARNING_MESSAGE);
+    }
+
+    @Override
+    public void mostrarFiltros(Collection<Tarea> tareasFiltradas){
+        tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
+        tabla.ajustarAnchoColumnas();
+    }
 
     @Override
     public Panel getPanel() {
