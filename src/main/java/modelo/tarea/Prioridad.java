@@ -7,7 +7,7 @@ public enum Prioridad implements Serializable {
     NORMAL("Prioridad media"),
     ALTA("Prioridad Alta");
 
-    private String descripcion;
+    private final String descripcion;
 
     private Prioridad(String descripcion){ this.descripcion = descripcion; }
 

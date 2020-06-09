@@ -4,7 +4,6 @@ package controlador;
 import modelo.CambioModelo;
 import modelo.GestorTareas;
 import vista.ImplementacionVista;
-
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

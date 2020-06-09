@@ -28,12 +28,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
     public void setControlador(Controlador controlador){
         this.controlador = controlador;
         this.panel.setControlador(controlador);
-
-    }
-
-    @Override
-    public void accionPermitida(String cadena){
-        JOptionPane.showMessageDialog(null, cadena);
     }
 
     @Override

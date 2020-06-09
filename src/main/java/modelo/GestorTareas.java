@@ -16,24 +16,21 @@ public class GestorTareas implements Serializable {
     private static FabricaTareas fabricaTareas;
 
 
-
     public GestorTareas(){
         this.tareas = new HashMap<Integer, Tarea>();
         fabricaTareas = new FabricaTareas();
     }
+
 
     public void setVista(InformaVista vista) { this.vista = vista; }
 
     public void setFiltro(Filtro filtro) { this.filtro = filtro; }
 
     public boolean existeTarea(int codigoTarea){
-        if(tareas.containsKey(codigoTarea)) return true;
-        return false;
+        return tareas.containsKey(codigoTarea);
     }
 
-
-
-    //TODO: El siguiente método se utiliza unicamente para los tests
+    // El siguiente método se utiliza unicamente para los tests
     public void anadirTarea(Tarea tarea){
         tareas.put(tarea.getCodigo(), tarea);
     }
@@ -65,7 +62,5 @@ public class GestorTareas implements Serializable {
     public Collection<Tarea> devolverTareas(){
         return tareas.values();
     }
-
-
 
 }

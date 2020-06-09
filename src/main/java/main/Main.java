@@ -14,7 +14,7 @@ public class Main implements Serializable {
     public static void main(String[] args) {
         GestorTareas gestorTareas = new GestorTareas();
 
-        //Arranque del GUI:
+        //Arranque de la interfaz gráfica:
         ImplementacionControlador controlador = new ImplementacionControlador();
         ImplementacionModelo modelo = new ImplementacionModelo();
         ImplementacionVista vista = new ImplementacionVista();

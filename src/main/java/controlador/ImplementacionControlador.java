@@ -8,13 +8,14 @@ public class ImplementacionControlador implements Controlador {
     private InterrogaVista vista;
     private CambioModelo modelo;
 
+
     public ImplementacionControlador(){ super(); }
 
     public void setModelo(CambioModelo modelo) {
         this.modelo = modelo;
         Accion.gestorTareas = modelo.getGestorTareas();
-
     }
+
 
     public void setVista(InterrogaVista vista) {
         this.vista = vista;

@@ -1,6 +1,5 @@
 package modelo;
 
-
 import vista.InformaVista;
 
 public class ImplementacionModelo implements CambioModelo, InterrogaModelo{

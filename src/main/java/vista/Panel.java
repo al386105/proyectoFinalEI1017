@@ -203,7 +203,6 @@ public class Panel extends JPanel implements InterrogaVista{
         jPanelseccionBaja.setLayout(new BoxLayout(jPanelseccionBaja, BoxLayout.Y_AXIS));
 
         //Titulo:
-
         JLabel jLabelTituloSeccionBaja = new JLabel("Detalle de la tarea ");
         jPanelseccionBaja.add(jLabelTituloSeccionBaja);
         JPanel titulo = new JPanel();
@@ -228,7 +227,6 @@ public class Panel extends JPanel implements InterrogaVista{
 
         //Estado
         jCheckBoxCompletada = new JCheckBox("Completada");
-
         jPanelseccionBaja.add(jCheckBoxCompletada);
 
         //Prioridad
@@ -322,8 +320,7 @@ public class Panel extends JPanel implements InterrogaVista{
         jTextFieldTitulo.setText(tareaSeleccionada.getTitulo());
         jTextAreaDescripcion.setText(tareaSeleccionada.getDescripcion());
         //Modificamos los botones segun estado de la tarea seleccionada:
-        if(tareaSeleccionada.completada()) jCheckBoxCompletada.setSelected(true);
-        else jCheckBoxCompletada.setSelected(false);
+        jCheckBoxCompletada.setSelected(tareaSeleccionada.completada());
         //Modificamos los botones segun prioridad
         if(tareaSeleccionada.getPrioridad().equals(Prioridad.ALTA)) jRButtonAlta2.setSelected(true);
         else if(tareaSeleccionada.getPrioridad().equals(Prioridad.NORMAL)) jRButtonNormal2.setSelected(true);
