@@ -32,7 +32,7 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
 
     @Override
     public void accionDenegada(String cadena){
-        JOptionPane.showMessageDialog(null, cadena,"Error", JOptionPane.WARNING_MESSAGE);
+        this.panel.accionDenegada(cadena);
     }
 
     public void creaGUI(){

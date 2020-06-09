@@ -57,7 +57,10 @@ public class GestorTareas implements Serializable {
         return filtro.filtrar(tareas);
     }
 
+    public void mostrarFiltros(Collection<Tarea> tareasFiltradas) { vista.mostrarFiltros(tareasFiltradas);}
+
     public Tarea devolverTarea(int codigoTarea){ return tareas.get(codigoTarea); }
+
 
     public Collection<Tarea> devolverTareas(){
         return tareas.values();
