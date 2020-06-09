@@ -16,7 +16,6 @@ public class ExportarDatos {
                 FileOutputStream fos = new FileOutputStream("AgendaTareas.bin");
                 oos = new ObjectOutputStream(fos);
                 oos.writeObject(gestorTareas);
-                //ventana para mostrar que los datos han sido guardados sin problema
                 JOptionPane.showMessageDialog(null, "Datos guardados correctamente");
             } finally {
                 oos.close();

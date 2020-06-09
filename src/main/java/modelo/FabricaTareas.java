@@ -4,8 +4,9 @@ import modelo.tarea.Prioridad;
 import modelo.tarea.Tarea;
 
 /**
- * Esta clase la he realizado para implementar el patron de diseño Factory.
- * Con ello pretendo desacoplar la clase Tareas de la Clase GestorTareas
+ * Esta clase se ha realizado para implementar el patron de diseño Factory.
+ * Con ello pretendo desacoplar la clase Tareas de la clase GestorTareas
+ * eliminando el operador new de esta última clase.
  * */
 
 public class FabricaTareas {

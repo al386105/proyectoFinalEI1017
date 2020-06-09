@@ -1,6 +1,5 @@
 package modelo.filtros;
 
-
 import modelo.tarea.Tarea;
 import java.util.Collection;
 import java.util.LinkedList;

@@ -2,6 +2,10 @@ package controlador;
 
 import modelo.TareaNoExistenteException;
 
+/**
+ * En esta interfaz se difinen las acciones que el controlador va a realizar.
+ * */
+
 public interface Controlador {
     void importarDatos();
 

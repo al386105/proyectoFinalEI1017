@@ -15,8 +15,15 @@ import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * En esta clase se implementa el diseño del panel principal de la ventana.
+ * He decidido separarlo de la clase ImplementacionVista para que no quede
+ * una clase con tanto código.
+ * Implementa la interfaz InterrogaVista ya que esta define los métodos
+ * que devuelven los datos introducidos por el usuario.
+ * */
 
-public class Panel extends JPanel implements InterrogaVista, InformaVista{
+public class Panel extends JPanel implements InterrogaVista{
     private Controlador controlador;
     private InterrogaModelo modelo;
     private InformaVista vista;
@@ -331,19 +338,12 @@ public class Panel extends JPanel implements InterrogaVista, InformaVista{
         GestorTareas gestorTareas = modelo.getGestorTareas();
         Collection<Tarea> tareas = gestorTareas.devolverTareas();
         tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareas));
-        tabla.ajustarAnchoColumnas();
     }
 
-
-    @Override
-    public void accionDenegada(String cadena) {
-        JOptionPane.showMessageDialog(null, cadena,"Error", JOptionPane.WARNING_MESSAGE);
-    }
 
     @Override
     public void mostrarTareasFiltradas(Collection<Tarea> tareasFiltradas){
         tabla.setModel(modeloTabla = new ModeloTabla(columnas, tareasFiltradas));
-        tabla.ajustarAnchoColumnas();
     }
 
     @Override

@@ -30,7 +30,7 @@ public class GestorTareas implements Serializable {
         return tareas.containsKey(codigoTarea);
     }
 
-    // El siguiente método se utiliza unicamente para los tests
+    // El siguiente método se utiliza unicamente para los tests JUnit
     public void anadirTarea(Tarea tarea){
         tareas.put(tarea.getCodigo(), tarea);
     }

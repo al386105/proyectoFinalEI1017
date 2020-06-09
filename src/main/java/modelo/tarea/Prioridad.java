@@ -3,9 +3,9 @@ package modelo.tarea;
 import java.io.Serializable;
 
 public enum Prioridad implements Serializable {
-    BAJA("Prioridad baja"),
-    NORMAL("Prioridad media"),
-    ALTA("Prioridad Alta");
+    BAJA("Baja"),
+    NORMAL("Normal"),
+    ALTA("Alta");
 
     private final String descripcion;
 

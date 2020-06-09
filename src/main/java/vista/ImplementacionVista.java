@@ -14,12 +14,12 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
     private Panel panel;
 
 
-
     public ImplementacionVista(){
         super();
         this.panel = new Panel();
         this.panel.setVista(this);
     }
+
 
     public void setModelo(InterrogaModelo modelo){
         this.panel.setModelo(modelo);
@@ -30,10 +30,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
         this.panel.setControlador(controlador);
     }
 
-    @Override
-    public void accionDenegada(String cadena){
-        this.panel.accionDenegada(cadena);
-    }
 
     public void creaGUI(){
         SwingUtilities.invokeLater(new Runnable() {
@@ -65,8 +61,6 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
             }
         });
     }
-
-
 
     @Override
     public Panel getPanel() {
@@ -112,6 +106,11 @@ public class ImplementacionVista implements InformaVista, InterrogaVista{
     @Override
     public int getCodigo() {
         return this.panel.getCodigo();
+    }
+
+    @Override
+    public void accionDenegada(String cadena) {
+        JOptionPane.showMessageDialog(null, cadena,"Error", JOptionPane.WARNING_MESSAGE);
     }
 
 }

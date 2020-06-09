@@ -41,6 +41,7 @@ public class AplicarFiltros extends Accion {
             tareasFiltradas = gestorTareas.filtrar(tareasFiltradas);
         }
 
+        //Esta llamada a la vista no la he realizado desde el modelo porque
         vista.mostrarTareasFiltradas(tareasFiltradas);
     }
 }
